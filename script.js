@@ -7,17 +7,18 @@ const SUITES = {
     'familia': { nome: 'Suíte Família', preco: 279, maxPax: 3 }
 };
 
-// Dicionário de Idiomas
+// Dicionário de Idiomas Expandido
 const i18n = {
     pt: {
         nav_home: "Início", nav_about: "O Hotel", nav_rooms: "Suítes", nav_services: "Serviços", nav_info: "Informações", nav_contact: "Fale Conosco",
         hero_title: "Sua estadia perfeita no DF", hero_desc: "Conforto, praticidade e o melhor custo-benefício para sua viagem de negócios ou lazer em Samambaia.", hero_btn: "Ver Suítes",
         btn_search: "Buscar Suítes",
         about_sub: "Bem-vindo ao Hotel Samamba", about_title: "Conforto, praticidade e economia na sua hospedagem.", 
-        about_p1: "Seja para uma viagem a trabalho, um compromisso na região ou alguns dias de descanso, o Hotel Samamba é a escolha ideal para quem busca conforto e praticidade em Samambaia, no Distrito Federal. Nossas suítes oferecem um ambiente funcional e acolhedor, com as comodidades essenciais para você descansar e aproveitar sua estadia. Tudo isso com preços acessíveis e uma localização conveniente para facilitar sua rotina.",
+        about_p1: "Seja para uma viagem a trabalho, um compromisso na região ou alguns dias de descanso, o Hotel Samamba é a escolha ideal para quem busca conforto e praticidade em Samambaia, no Distrito Federal. Nossas suítes oferecem um ambiente funcional e acolhedor, com as comodidades essenciais para você descansar e aproveitar sua estadia. Tudo isso com preços acessíveis e uma localização conveniente para facilitar sua routine.",
         about_p2: "No Hotel Samamba, você encontra o equilíbrio entre conforto, praticidade e preço justo. Faça sua reserva e desfrute de uma estadia tranquila em Samambaia.",
         feat_coffee: "Café Incluso", feat_wifi: "Wi-Fi Grátis", feat_parking: "Estacionamento",
         rooms_sub: "Acomodações", rooms_title: "Nossas Suítes", rooms_desc: "Da cama ao banho – cada detalhe foi pensado para o seu conforto.",
+        room_kid_policy: "<i class=\"fas fa-info-circle\"></i> Política de Crianças: 1 criança de até 7 anos tem gratuidade na reserva.",
         room_title_solteiro: "Suíte Solteiro", room_title_casal: "Suíte Casal", room_title_duplo: "Suíte Duplo", room_title_triplo: "Suíte Triplo", room_title_familia: "Suíte Família",
         desc_solteiro: "Ideal para quem viaja sozinho e procura conforto e praticidade em Samambaia. Ambiente acolhedor e funcional.",
         desc_casal: "Perfeita para casais que desejam uma estadia confortável e prática no DF. Comodidade e tranquilidade.",
@@ -25,6 +26,9 @@ const i18n = {
         desc_triplo: "Com espaço para até três pessoas, é uma ótima escolha para pequenas famílias, amigos ou colegas de trabalho.",
         desc_familia: "Ambiente amplo e funcional. Ideal para quem busca praticidade e conforto para pequenas famílias.",
         per_night: "/ diária", btn_book: "Reservar Suíte",
+        amen_max1: "Máx: 1 Pessoa", amen_max2: "Máx: 2 Pessoas", amen_max3: "Máx: 3 Pessoas",
+        amen_bed_solteiro: "1 Cama de Solteiro", amen_bed_casal: "1 Cama de Casal", amen_bed_2solteiro: "2 Camas de Solteiro", amen_bed_triplo: "Camas Solteiro/Casal", amen_bed_familia: "1 Casal + 1 Solteiro",
+        amen_features: "Ar-condicionado, Wi-Fi, Varanda",
         amenities_sub: "Estrutura", amenities_title: "Tudo Para Sua Comodidade",
         am_coffee_title: "Café da Manhã Regional", am_coffee_desc: "Buffet com itens quentes e frios, pães, tapioca recheada, cuscuz, omeletes e bolos caseiros.",
         am_park_title: "Estacionamento Gratuito", am_park_desc: "Vagas privativas e seguras no local para todos os hóspedes sem custo adicional.",
@@ -39,7 +43,14 @@ const i18n = {
         pol_kid3: "Menores de 18 anos: devem estar acompanhados pelos pais ou apresentar a autorização exigida para a hospedagem.",
         pol_pay_title: "Pagamento e Cancelamento", pol_pay1_b: "Parcelamento:", pol_pay1_s: "Em até 3x sem juros (Visa/Mastercard) para despesas acima de R$ 500.", pol_pay2_b: "Cancelamento Grátis:", pol_pay2_s: "Até 28 horas úteis antes do check-in.",
         loc_title: "Nossa Localização", loc_desc: "Próximo a centros comerciais, paradas de metrô e com fácil acesso às vias principais do DF.",
-        ft_desc: "Uma excelente opção de hospedagem em Samambaia, DF, com suítes aconchegantes e amplas. CNPJ: 33.494.352/0001-08", ft_links: "Links Rápidos", ft_wpp: "Chamar no WhatsApp"
+        ft_desc: "Uma excelente opção de hospedagem em Samambaia, DF, com suítes aconchegantes e amplas. CNPJ: 33.494.352/0001-08", ft_links: "Links Rápidos", ft_wpp: "Chamar no WhatsApp",
+        // Modal & Checkout
+        md_title: "Resumo da Reserva", md_stay_details: "Detalhes da Estadia", md_checkin: "Check-in:", md_checkout: "Check-out:",
+        md_total_nights: "Total de Diárias:", md_suite: "Suíte:", md_max_pax: "Ocupação máxima:", md_person: "pessoa(s)",
+        md_daily_rate: "Valor da Diária:", md_pet_service: "Serviço de Pets", md_pet_ask: "Deseja incluir estadia na área para pet?",
+        md_no: "Não", md_yes: "Sim", md_pet_limit: "É permitido levar apenas 1 pet por reserva.", md_subtotal_room: "Subtotal Acomodação:",
+        md_pet_subtotal: "Serviço Pet (1 animal):", md_total_res: "Total da Reserva:", md_btn_confirm: "Confirmar Reserva",
+        md_success_title: "Reserva Solicitada!", md_success_desc: "Seus dados foram processados com sucesso. Nossa equipe confirmará os dados em breve via e-mail e WhatsApp.", md_btn_back: "Voltar para o site"
     },
     en: {
         nav_home: "Home", nav_about: "Hotel", nav_rooms: "Suites", nav_services: "Services", nav_info: "Info", nav_contact: "Contact Us",
@@ -50,6 +61,7 @@ const i18n = {
         about_p2: "At Hotel Samamba, you'll find the perfect balance between comfort, practicality, and a fair price.",
         feat_coffee: "Breakfast Included", feat_wifi: "Free Wi-Fi", feat_parking: "Parking",
         rooms_sub: "Accommodations", rooms_title: "Our Suites", rooms_desc: "From the bed to the bath – every detail was thought of for your comfort.",
+        room_kid_policy: "<i class=\"fas fa-info-circle\"></i> Child Policy: 1 child up to 7 years old stays for free.",
         room_title_solteiro: "Single Suite", room_title_casal: "Couple Suite", room_title_duplo: "Double Suite", room_title_triplo: "Triple Suite", room_title_familia: "Family Suite",
         desc_solteiro: "Ideal for solo travelers looking for comfort and practicality. Cozy and functional environment.",
         desc_casal: "Perfect for couples wanting a comfortable and practical stay. Convenience and tranquility.",
@@ -57,6 +69,9 @@ const i18n = {
         desc_triplo: "With space for up to three people, it's a great choice for small families or friends.",
         desc_familia: "Spacious environment. Ideal for those seeking practicality and comfort for small families.",
         per_night: "/ night", btn_book: "Book Suite",
+        amen_max1: "Max: 1 Person", amen_max2: "Max: 2 People", amen_max3: "Max: 3 People",
+        amen_bed_solteiro: "1 Single Bed", amen_bed_casal: "1 Double Bed", amen_bed_2solteiro: "2 Single Beds", amen_bed_triplo: "Single/Double Beds", amen_bed_familia: "1 Double + 1 Single",
+        amen_features: "Air Conditioning, Wi-Fi, Balcony",
         amenities_sub: "Facilities", amenities_title: "Everything For Your Comfort",
         am_coffee_title: "Regional Breakfast", am_coffee_desc: "Buffet with hot and cold items, breads, stuffed tapioca, couscous, and homemade cakes.",
         am_park_title: "Free Parking", am_park_desc: "Private and secure spaces on site for all guests at no extra cost.",
@@ -71,7 +86,14 @@ const i18n = {
         pol_kid3: "Minors under 18: must be accompanied by parents or present required authorization.",
         pol_pay_title: "Payment and Cancellation", pol_pay1_b: "Installments:", pol_pay1_s: "Up to 3x interest-free (Visa/Mastercard) for expenses over R$ 500.", pol_pay2_b: "Free Cancellation:", pol_pay2_s: "Up to 28 business hours before check-in.",
         loc_title: "Our Location", loc_desc: "Close to commercial centers, subway stops, and easy access to main roads.",
-        ft_desc: "An excellent lodging option in Samambaia, DF, with cozy and spacious suites. CNPJ: 33.494.352/0001-08", ft_links: "Quick Links", ft_wpp: "Message on WhatsApp"
+        ft_desc: "An excellent lodging option in Samambaia, DF, with cozy and spacious suites. CNPJ: 33.494.352/0001-08", ft_links: "Quick Links", ft_wpp: "Message on WhatsApp",
+        // Modal & Checkout
+        md_title: "Reservation Summary", md_stay_details: "Stay Details", md_checkin: "Check-in:", md_checkout: "Check-out:",
+        md_total_nights: "Total Nights:", md_suite: "Suite:", md_max_pax: "Max Occupancy:", md_person: "person(s)",
+        md_daily_rate: "Daily Rate:", md_pet_service: "Pet Service", md_pet_ask: "Would you like to include pet accommodation?",
+        md_no: "No", md_yes: "Yes", md_pet_limit: "Only 1 pet is allowed per reservation.", md_subtotal_room: "Accommodation Subtotal:",
+        md_pet_subtotal: "Pet Service (1 pet):", md_total_res: "Total Amount:", md_btn_confirm: "Confirm Reservation",
+        md_success_title: "Reservation Requested!", md_success_desc: "Your data has been successfully processed. Our team will confirm your details shortly via email and WhatsApp.", md_btn_back: "Back to website"
     },
     es: {
         nav_home: "Inicio", nav_about: "El Hotel", nav_rooms: "Suites", nav_services: "Servicios", nav_info: "Información", nav_contact: "Contáctenos",
@@ -82,6 +104,7 @@ const i18n = {
         about_p2: "En el Hotel Samamba, encontrarás el equilibrio perfecto entre confort, practicidad y precio justo.",
         feat_coffee: "Desayuno Incluido", feat_wifi: "Wi-Fi Gratis", feat_parking: "Estacionamiento",
         rooms_sub: "Alojamientos", rooms_title: "Nuestras Suites", rooms_desc: "De la cama al baño – cada detalle pensado para su confort.",
+        room_kid_policy: "<i class=\"fas fa-info-circle\"></i> Política de Niños: 1 niño hasta 7 años se aloja gratis.",
         room_title_solteiro: "Suite Individual", room_title_casal: "Suite Pareja", room_title_duplo: "Suite Doble", room_title_triplo: "Suite Triple", room_title_familia: "Suite Familiar",
         desc_solteiro: "Ideal para viajeros solitarios. Ambiente acogedor y funcional.",
         desc_casal: "Perfecta para parejas que desean una estancia cómoda. Tranquilidad y confort.",
@@ -89,6 +112,9 @@ const i18n = {
         desc_triplo: "Con espacio para hasta tres personas, ideal para familias pequeñas o amigos.",
         desc_familia: "Ambiente amplio y funcional. Ideal para quienes buscan confort para familias.",
         per_night: "/ noche", btn_book: "Reservar Suite",
+        amen_max1: "Máx: 1 Persona", amen_max2: "Máx: 2 Personas", amen_max3: "Máx: 3 Personas",
+        amen_bed_solteiro: "1 Cama Individual", amen_bed_casal: "1 Cama Matrimonial", amen_bed_2solteiro: "2 Camas Individuales", amen_bed_triplo: "Camas Individuales/Matrimoniales", amen_bed_familia: "1 Matrimonial + 1 Individual",
+        amen_features: "Aire Acondicionado, Wi-Fi, Balcón",
         amenities_sub: "Instalaciones", amenities_title: "Todo Para Su Comodidad",
         am_coffee_title: "Desayuno Regional", am_coffee_desc: "Buffet con opciones frías y calientes, tapioca, cuscús y pasteles caseros.",
         am_park_title: "Estacionamiento Gratis", am_park_desc: "Plazas privadas y seguras en el lugar sin costo adicional.",
@@ -103,7 +129,14 @@ const i18n = {
         pol_kid3: "Menores de 18 años: deben estar acompañados por los padres o presentar la autorización requerida.",
         pol_pay_title: "Pago y Cancelación", pol_pay1_b: "Cuotas:", pol_pay1_s: "Hasta 3x sin interés (Visa/Mastercard) para gastos sobre R$ 500.", pol_pay2_b: "Cancelación Gratis:", pol_pay2_s: "Hasta 28 horas hábiles antes del check-in.",
         loc_title: "Nuestra Ubicación", loc_desc: "Cerca de centros comerciales, metro y con fácil acceso a las vías principales.",
-        ft_desc: "Una excelente opción de alojamiento en Samambaia, DF. CNPJ: 33.494.352/0001-08", ft_links: "Enlaces Rápidos", ft_wpp: "Llamar en WhatsApp"
+        ft_desc: "Una excelente opción de alojamiento en Samambaia, DF. CNPJ: 33.494.352/0001-08", ft_links: "Enlaces Rápidos", ft_wpp: "Llamar en WhatsApp",
+        // Modal & Checkout
+        md_title: "Resumen de la Reserva", md_stay_details: "Detalles de la Estancia", md_checkin: "Check-in:", md_checkout: "Check-out:",
+        md_total_nights: "Noches Totales:", md_suite: "Suite:", md_max_pax: "Ocupación máxima:", md_person: "persona(s)",
+        md_daily_rate: "Precio por Noche:", md_pet_service: "Servicio de Mascotas", md_pet_ask: "¿Desea incluir estancia en el área de mascotas?",
+        md_no: "No", md_yes: "Sí", md_pet_limit: "Solo se permite 1 mascota por reserva.", md_subtotal_room: "Subtotal Alojamiento:",
+        md_pet_subtotal: "Servicio Mascotas (1 mascota):", md_total_res: "Total Reserva:", md_btn_confirm: "Confirmar Reserva",
+        md_success_title: "¡Reserva Solicitada!", md_success_desc: "Sus datos han sido procesados con éxito. Nuestro equipo confirmará su reserva en breve por correo o WhatsApp.", md_btn_back: "Volver al sitio"
     }
 };
 
@@ -115,8 +148,15 @@ function changeLanguage(lang) {
     const elements = document.querySelectorAll('[data-i18n]');
     elements.forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
+        if (i18n[lang][key]) {
+            el.innerHTML = i18n[lang][key];
+        }
     });
+
+    // Atualiza modal dinâmico caso esteja aberto
+    if (!document.getElementById('modal-overlay').classList.contains('hidden')) {
+        renderModal();
+    }
 }
 
 const formatBRL = (value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
@@ -156,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Lógica de Carrossel Principal (Hero) Atualizada com Navegação Manual
+// Carrossel Principal
 let heroSlideIndex = 0;
 let heroSlideTimer;
 
@@ -188,20 +228,18 @@ function startHeroTimer() {
 function moveHeroSlide(n) {
     heroSlideIndex += n;
     showHeroSlide(heroSlideIndex);
-    startHeroTimer(); // Reseta o timer para não dar conflito após clique
+    startHeroTimer();
 }
 
 function currentHeroSlide(n) {
     heroSlideIndex = n;
     showHeroSlide(heroSlideIndex);
-    startHeroTimer(); // Reseta o timer
+    startHeroTimer();
 }
 
-// Inicia o timer do banner na primeira carga
 startHeroTimer();
 
-
-// Lógica de Carrossel Interno (Suítes)
+// Carrossel Interno
 const carouselsPos = { solteiro: 0, casal: 0, duplo: 0, triplo: 0, familia: 0 };
 function moveRoomCarousel(suite, dir) {
     const track = document.querySelector(`#carousel-${suite} .room-carousel-track`);
@@ -222,7 +260,7 @@ function showToast(msg) {
     setTimeout(() => toast.classList.add('hidden'), 3500);
 }
 
-// Fluxo de Reserva Modal
+// Fluxo de Reserva Modal com Suporte a Tradução
 let modalState = { suiteKey: null, incluiPet: 'nao', qtdPet: 1, checkin: '', checkout: '' };
 
 function iniciarReserva(suiteKey) {
@@ -230,7 +268,6 @@ function iniciarReserva(suiteKey) {
     modalState.incluiPet = 'nao';
     modalState.qtdPet = 1;
 
-    // Configura datas iniciais para o modal se estiverem vazias
     if(!modalState.checkin) {
         const timezoneOffset = (new Date()).getTimezoneOffset() * 60000;
         const hoje = new Date(Date.now() - timezoneOffset);
@@ -261,20 +298,15 @@ function atualizarDatas() {
     }
 }
 
-function formatDateBr(dateString) {
-    if(!dateString) return '';
-    const [y, m, d] = dateString.split('-');
-    return `${d}/${m}/${y}`;
-}
-
 function renderModal() {
+    const txt = i18n[currentLang];
     const dias = Math.ceil((new Date(modalState.checkout) - new Date(modalState.checkin)) / (1000 * 60 * 60 * 24)) || 1;
     const suite = SUITES[modalState.suiteKey];
     const valorAcomodacao = dias * suite.preco;
     
     let valorPets = 0;
     if (modalState.incluiPet === 'sim') {
-        modalState.qtdPet = 1; // Limita sempre a 1 pet na regra de negócios
+        modalState.qtdPet = 1;
         if (dias <= 3) {
             valorPets = 80 * dias;
         } else {
@@ -283,46 +315,46 @@ function renderModal() {
     }
     
     const valorTotal = valorAcomodacao + valorPets;
-    
     const minCheckin = (new Date()).toISOString().split('T')[0];
+    const suiteNomeTraduzido = txt[`room_title_${modalState.suiteKey}`] || suite.nome;
 
     const modalHTML = `
         <div class="modal-header">
-            <h2>Resumo da Reserva</h2>
+            <h2>${txt.md_title}</h2>
             <button class="close-modal" onclick="fecharModal()">×</button>
         </div>
         
         <div class="modal-body-grid">
             <div class="modal-step">
-                <h3>Detalhes da Estadia</h3>
+                <h3>${txt.md_stay_details}</h3>
                 <div class="modal-dates">
                     <div class="input-group-modal">
-                        <label>Check-in:</label>
+                        <label>${txt.md_checkin}</label>
                         <input type="date" id="modal-checkin" value="${modalState.checkin}" min="${minCheckin}" onchange="atualizarDatas()">
                     </div>
                     <div class="input-group-modal">
-                        <label>Check-out:</label>
+                        <label>${txt.md_checkout}</label>
                         <input type="date" id="modal-checkout" value="${modalState.checkout}" onchange="atualizarDatas()">
                     </div>
                 </div>
-                <p><strong>Total de Diárias:</strong> ${dias}</p>
+                <p><strong>${txt.md_total_nights}</strong> ${dias}</p>
                 <hr>
-                <p><strong>Suíte:</strong> ${suite.nome}</p>
-                <p><strong>Ocupação máxima:</strong> ${suite.maxPax} pessoa(s)</p>
-                <p><strong>Valor da Diária:</strong> ${formatBRL(suite.preco)}</p>
+                <p><strong>${txt.md_suite}</strong> ${suiteNomeTraduzido}</p>
+                <p><strong>${txt.md_max_pax}</strong> ${suite.maxPax} ${txt.md_person}</p>
+                <p><strong>${txt.md_daily_rate}</strong> ${formatBRL(suite.preco)}</p>
             </div>
             
             <div class="modal-step pet-selection-box">
-                <h3>Serviço de Pets</h3>
-                <label>Deseja incluir estadia na área para pet?</label>
+                <h3>${txt.md_pet_service}</h3>
+                <label>${txt.md_pet_ask}</label>
                 <div class="radio-group">
-                    <label><input type="radio" name="pet_opt" value="nao" ${modalState.incluiPet === 'nao' ? 'checked' : ''} onchange="atualizarPet('nao')"> Não</label>
-                    <label><input type="radio" name="pet_opt" value="sim" ${modalState.incluiPet === 'sim' ? 'checked' : ''} onchange="atualizarPet('sim')"> Sim</label>
+                    <label><input type="radio" name="pet_opt" value="nao" ${modalState.incluiPet === 'nao' ? 'checked' : ''} onchange="atualizarPet('nao')"> ${txt.md_no}</label>
+                    <label><input type="radio" name="pet_opt" value="sim" ${modalState.incluiPet === 'sim' ? 'checked' : ''} onchange="atualizarPet('sim')"> ${txt.md_yes}</label>
                 </div>
                 
                 ${modalState.incluiPet === 'sim' ? `
                     <div style="margin-top: 15px; font-size: 0.9rem; color: var(--accent); font-weight: 600;">
-                        <i class="fas fa-info-circle"></i> É permitido levar apenas 1 pet por reserva.
+                        <i class="fas fa-info-circle"></i> ${txt.md_pet_limit}
                     </div>
                 ` : ''}
             </div>
@@ -330,24 +362,24 @@ function renderModal() {
 
         <div class="summary-box">
             <div class="summary-row">
-                <span>Subtotal Acomodação:</span>
+                <span>${txt.md_subtotal_room}</span>
                 <span>${formatBRL(valorAcomodacao)}</span>
             </div>
             ${modalState.incluiPet === 'sim' ? `
                 <div class="summary-row">
-                    <span>Serviço Pet (1 animal):</span>
+                    <span>${txt.md_pet_subtotal}</span>
                     <span>${formatBRL(valorPets)}</span>
                 </div>
             ` : ''}
             
             <div class="summary-row final-total">
-                <span>Total da Reserva:</span>
+                <span>${txt.md_total_res}</span>
                 <span id="final-total">${formatBRL(valorTotal)}</span>
             </div>
         </div>
         
         <button class="btn-checkout-final" onclick="finalizarReserva()">
-            Confirmar Reserva
+            ${txt.md_btn_confirm}
         </button>
     `;
 
@@ -364,15 +396,16 @@ function fecharModal() {
 }
 
 function finalizarReserva() {
+    const txt = i18n[currentLang];
     document.getElementById('modal-content').innerHTML = `
         <div class="success-screen">
             <div class="success-icon">
                 <i class="fas fa-check"></i>
             </div>
-            <h2>Reserva Solicitada!</h2>
-            <p>Seus dados foram processados com sucesso. Nossa equipe confirmará os dados em breve via e-mail e WhatsApp.</p>
+            <h2>${txt.md_success_title}</h2>
+            <p>${txt.md_success_desc}</p>
             <button class="btn-checkout-final btn-back" onclick="fecharModal()">
-                Voltar para o site
+                ${txt.md_btn_back}
             </button>
         </div>
     `;
