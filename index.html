@@ -7,277 +7,231 @@
     <title>Hotel Samamba | Conforto e Custo-Benefício no DF</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Open+Sans:wght@400;600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- Navegação -->
-    <nav id="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <a href="#">Hotel Samamba<span>.</span></a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#inicio" data-i18n="nav_home">Início</a></li>
-                <li><a href="#sobre" data-i18n="nav_about">O Hotel</a></li>
-                <li><a href="#quartos" data-i18n="nav_rooms">Suítes</a></li>
-                <li><a href="#facilidades" data-i18n="nav_services">Serviços</a></li>
-                <li><a href="#informacoes" data-i18n="nav_info">Informações</a></li>
-            </ul>
-            <div class="nav-actions">
-                <a href="https://api.whatsapp.com/send/?phone=556130488201" target="_blank" class="btn-whatsapp-nav">
-                    <i class="fab fa-whatsapp"></i> <span data-i18n="nav_contact">Fale Conosco</span>
-                </a>
-                <div class="lang-switcher">
-                    <img src="https://flagcdn.com/w40/br.png" alt="PT" onclick="changeLanguage('pt')" title="Português">
-                    <img src="https://flagcdn.com/w40/us.png" alt="EN" onclick="changeLanguage('en')" title="English">
-                    <img src="https://flagcdn.com/w40/es.png" alt="ES" onclick="changeLanguage('es')" title="Español">
+    <!-- Cabeçalho Fixo Unificado (Acessibilidade + Navbar) -->
+    <header class="header-fixed-wrapper">
+        <div class="top-accessibility-bar" role="region" aria-label="Controles de Acessibilidade W3C">
+            <div class="container accessibility-container">
+                <div class="accessibility-controls">
+                    <span class="acc-label"><i class="fas fa-universal-access"></i> Acessibilidade:</span>
+                    <button id="btn-increase-font" type="button" aria-label="Aumentar fonte" title="Aumentar Fonte">A+</button>
+                    <button id="btn-decrease-font" type="button" aria-label="Diminuir fonte" title="Diminuir Fonte">A-</button>
+                    <button id="btn-reset-font" type="button" aria-label="Tamanho padrão" title="Tamanho Padrão">A</button>
+                    <button id="btn-toggle-contrast" type="button" aria-label="Alto Contraste" title="Alto Contraste"><i class="fas fa-adjust"></i> Contraste</button>
+                    <button id="btn-highlight-links" type="button" aria-label="Destacar Links" title="Destacar Links"><i class="fas fa-link"></i> Links</button>
+                    <button id="btn-read-text" type="button" aria-label="Ouvir Texto da Página" title="Ouvir Texto"><i class="fas fa-volume-high"></i> Ler Tela</button>
                 </div>
             </div>
-            <div class="menu-toggle" id="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </div>
         </div>
-    </nav>
+
+        <nav id="navbar" aria-label="Navegação Principal">
+            <div class="nav-container">
+                <div class="logo">
+                    <a href="#inicio" aria-label="Hotel Samamba - Ir para início">Hotel Samamba<span>.</span></a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#sobre" data-i18n="nav_about">O Hotel</a></li>
+                    <li><a href="#quartos" data-i18n="nav_rooms">Suítes</a></li>
+                    <li><a href="#facilidades" data-i18n="nav_services">Serviços</a></li>
+                    <li><a href="#informacoes" data-i18n="nav_info">Informações</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="https://api.whatsapp.com/send/?phone=556130488201" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-nav" aria-label="Fale conosco pelo WhatsApp">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i> <span data-i18n="nav_contact">Fale Conosco</span>
+                    </a>
+                    <div class="lang-switcher" role="group" aria-label="Seleção de Idioma">
+                        <img src="https://flagcdn.com/w40/br.png" alt="Português" onclick="app.traducao.changeLanguage('pt')" title="Português" tabindex="0">
+                        <img src="https://flagcdn.com/w40/us.png" alt="English" onclick="app.traducao.changeLanguage('en')" title="English" tabindex="0">
+                        <img src="https://flagcdn.com/w40/es.png" alt="Español" onclick="app.traducao.changeLanguage('es')" title="Español" tabindex="0">
+                    </div>
+                </div>
+                <button type="button" class="menu-toggle" id="mobile-menu" aria-label="Abrir Menu de Navegação">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
 
     <!-- Hero Section -->
-    <header id="inicio" class="hero">
-        <div class="hero-carousel">
-            <div class="slide active"
-                style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images3.motor-reserva.com.br/curl/storage/3657/s7bD6IcLPdupmDr0YMrTwZ46k7yHEXavGSwRDw3a.webp');">
-            </div>
-            <div class="slide"
-                style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images3.motor-reserva.com.br/curl/storage/3657/1NbolwBcFUTrIJH8NdTYM9Bk8Pp2Oi37ICYQQZ0G.webp');">
-            </div>
-            <div class="slide"
-                style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images3.motor-reserva.com.br/curl/storage/3657/Ot4RxvycYm0Rk2voFapaanAiUqaOwFLjcWOTjEIS.webp');">
-            </div>
-            <div class="slide"
-                style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images3.motor-reserva.com.br/curl/storage/3657/WBp3w52TY5JLgyxjG4eoFxMj2ZbfZlh2HqNzqDKG.webp');">
-            </div>
-            <div class="slide"
-                style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images3.motor-reserva.com.br/curl/storage/3657/vnvzfvU6vN7S89IRCHbtOs4iHbiE2sJ8RncKgFzl.webp');">
-            </div>
-        </div>
+    <section id="inicio" class="hero">
+        <section class="hero-carousel" aria-label="Carrossel de Destaques">
+            <div class="slide active" style="background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.75)), url('https://images3.motor-reserva.com.br/curl/storage/3657/s7bD6IcLPdupmDr0YMrTwZ46k7yHEXavGSwRDw3a.webp');"></div>
+            <div class="slide" style="background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.75)), url('https://images3.motor-reserva.com.br/curl/storage/3657/1NbolwBcFUTrIJH8NdTYM9Bk8Pp2Oi37ICYQQZ0G.webp');"></div>
+            <div class="slide" style="background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.75)), url('https://images3.motor-reserva.com.br/curl/storage/3657/Ot4RxvycYm0Rk2voFapaanAiUqaOwFLjcWOTjEIS.webp');"></div>
+            <div class="slide" style="background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.75)), url('https://images3.motor-reserva.com.br/curl/storage/3657/WBp3w52TY5JLgyxjG4eoFxMj2ZbfZlh2HqNzqDKG.webp');"></div>
+        </section>
 
-        <button class="hero-nav prev" onclick="moveHeroSlide(-1)">&#10094;</button>
-        <button class="hero-nav next" onclick="moveHeroSlide(1)">&#10095;</button>
+        <button type="button" class="hero-nav prev" onclick="moveHeroSlide(-1)" aria-label="Imagem Anterior">&#10094;</button>
+        <button type="button" class="hero-nav next" onclick="moveHeroSlide(1)" aria-label="Próxima Imagem">&#10095;</button>
 
         <div class="carousel-indicators">
-            <span class="dot active" onclick="currentHeroSlide(0)"></span>
-            <span class="dot" onclick="currentHeroSlide(1)"></span>
-            <span class="dot" onclick="currentHeroSlide(2)"></span>
-            <span class="dot" onclick="currentHeroSlide(3)"></span>
-            <span class="dot" onclick="currentHeroSlide(4)"></span>
+            <button type="button" class="dot active" onclick="currentHeroSlide(0)" aria-label="Ir para imagem 1"></button>
+            <button type="button" class="dot" onclick="currentHeroSlide(1)" aria-label="Ir para imagem 2"></button>
+            <button type="button" class="dot" onclick="currentHeroSlide(2)" aria-label="Ir para imagem 3"></button>
+            <button type="button" class="dot" onclick="currentHeroSlide(3)" aria-label="Ir para imagem 4"></button>
         </div>
 
-        <div class="hero-content animate-on-scroll">
+        <div class="hero-content reveal-on-scroll">
+            <span class="hero-badge"><i class="fas fa-star"></i> Hospedagem nº 1 em Samambaia</span>
             <h1 data-i18n="hero_title">Sua estadia perfeita no DF</h1>
-            <p data-i18n="hero_desc">Conforto, praticidade e o melhor custo-benefício para sua viagem de negócios ou
-                lazer em Samambaia.</p>
+            <p data-i18n="hero_desc">Conforto, praticidade e o melhor custo-benefício para sua viagem de negócios ou lazer em Samambaia.</p>
             <a href="#quartos" class="btn-primary" data-i18n="hero_btn">Ver Suítes</a>
         </div>
-    </header>
+    </section>
 
     <!-- Sobre o Hotel -->
     <section id="sobre" class="about-section">
         <div class="container about-grid">
-            <div class="about-text animate-on-scroll">
-                <h4 class="subtitle" data-i18n="about_sub">Bem-vindo ao Hotel Samamba</h4>
+            <div class="about-text reveal-on-scroll">
+                <span class="subtitle" data-i18n="about_sub">Bem-vindo ao Hotel Samamba</span>
                 <h2 data-i18n="about_title">Conforto, praticidade e economia na sua hospedagem.</h2>
-                <p data-i18n="about_p1">Seja para uma viagem a trabalho, um compromisso na região ou alguns dias de
-                    descanso, o Hotel Samamba é a escolha ideal para quem busca conforto e praticidade em Samambaia, no
-                    Distrito Federal. Nossas suítes oferecem um ambiente funcional e acolhedor, com as comodidades
-                    essenciais para você descansar e aproveitar sua estadia. Tudo isso com preços acessíveis e uma
-                    localização conveniente para facilitar sua rotina.</p>
-                <p data-i18n="about_p2">No Hotel Samamba, você encontra o equilíbrio entre conforto, praticidade e preço
-                    justo. Faça sua reserva e desfrute de uma estadia tranquila em Samambaia.</p>
+                <p data-i18n="about_p1">Seja para uma viagem a trabalho, um compromisso na região ou alguns dias de descanso, o Hotel Samamba é a escolha ideal para quem busca conforto e praticidade em Samambaia, no Distrito Federal. Nossas suítes oferecem um ambiente funcional e acolhedor, com as comodidades essenciais para você descansar e aproveitar sua estadia. Tudo isso com preços acessíveis e uma localização conveniente para facilitar sua rotina.</p>
+                <p data-i18n="about_p2">No Hotel Samamba, você encontra o equilíbrio entre conforto, praticidade e preço justo. Faça sua reserva e desfrute de uma estadia tranquila em Samambaia.</p>
                 <div class="features-mini">
-                    <span><i class="fas fa-coffee"></i> <span data-i18n="feat_coffee">Café Incluso</span></span>
-                    <span><i class="fas fa-wifi"></i> <span data-i18n="feat_wifi">Wi-Fi Grátis</span></span>
-                    <span><i class="fas fa-car"></i> <span data-i18n="feat_parking">Estacionamento</span></span>
+                    <span><i class="fas fa-coffee" aria-hidden="true"></i> <span data-i18n="feat_coffee">Café Incluso</span></span>
+                    <span><i class="fas fa-wifi" aria-hidden="true"></i> <span data-i18n="feat_wifi">Wi-Fi Grátis</span></span>
+                    <span><i class="fas fa-car" aria-hidden="true"></i> <span data-i18n="feat_parking">Estacionamento</span></span>
                 </div>
             </div>
-            <div class="about-image animate-on-scroll">
-                <img src="https://images3.motor-reserva.com.br/curl/storage/3657/GLi0un0sTgpXsq8cJCRGddbCDElVyOsYsYIU7rr5.webp"
-                    alt="Recepção do Hotel">
+            <div class="about-image reveal-on-scroll">
+                <img src="https://images3.motor-reserva.com.br/curl/storage/3657/GLi0un0sTgpXsq8cJCRGddbCDElVyOsYsYIU7rr5.webp" alt="Área de Recepção moderna e aconchegante do Hotel Samamba">
             </div>
         </div>
     </section>
 
-    <!-- Seção de Suítes (Exemplo com tags de atributos adicionadas) -->
+    <!-- Seção de Suítes -->
     <section id="quartos" class="rooms-section">
         <div class="container">
-            <div class="section-header text-center animate-on-scroll">
-                <h4 class="subtitle" data-i18n="rooms_sub">Acomodações</h4>
+            <div class="section-header text-center reveal-on-scroll">
+                <span class="subtitle" data-i18n="rooms_sub">Acomodações</span>
                 <h2 data-i18n="rooms_title">Nossas Suítes</h2>
                 <p data-i18n="rooms_desc">Da cama ao banho – cada detalhe foi pensado para o seu conforto.</p>
-                <p style="margin-top:10px; font-weight:600; color:var(--primary); font-size:0.95rem;"
-                    data-i18n="room_kid_policy">
-                    <i class="fas fa-info-circle"></i> Política de Crianças: 1 criança de até 7 anos tem gratuidade na
-                    reserva.
+                <p class="policy-notice" data-i18n="room_kid_policy">
+                    <i class="fas fa-info-circle" aria-hidden="true"></i> Política de Crianças: 1 criança de até 7 anos tem gratuidade na reserva.
                 </p>
             </div>
 
             <div class="rooms-grid">
                 <!-- Suíte Solteiro -->
-                <div class="room-card animate-on-scroll">
+                <article class="room-card reveal-on-scroll">
                     <div class="room-carousel" id="carousel-solteiro">
                         <div class="room-carousel-track">
-                            <img src="https://hospedarehoteis.com.br/wp-content/uploads/2025/04/Hotel-Hospedare-quarto-101-Luxo-Individual-3.jpg"
-                                alt="Suíte Solteiro" class="room-slide">
-                            <img src="https://hospedarehoteis.com.br/wp-content/uploads/2025/04/Hotel-Hospedare-quarto-101-Luxo-Individual-2.jpg"
-                                alt="Suíte Solteiro" class="room-slide">
-                            <img src="https://hospedarehoteis.com.br/wp-content/uploads/2025/04/Hotel-Hospedare-quarto-101-Luxo-Individual-1.jpg"
-                                alt="Suíte Solteiro" class="room-slide">
+                            <img src="https://hospedarehoteis.com.br/wp-content/uploads/2025/04/Hotel-Hospedare-quarto-101-Luxo-Individual-3.jpg" alt="Suíte Solteiro - Foto 1" class="room-slide">
+                            <img src="https://hospedarehoteis.com.br/wp-content/uploads/2025/04/Hotel-Hospedare-quarto-101-Luxo-Individual-2.jpg" alt="Suíte Solteiro - Foto 2" class="room-slide">
                         </div>
-                        <button class="carousel-btn prev" onclick="moveRoomCarousel('solteiro', -1)">&#10094;</button>
-                        <button class="carousel-btn next" onclick="moveRoomCarousel('solteiro', 1)">&#10095;</button>
+                        <button type="button" class="carousel-btn prev" onclick="moveRoomCarousel('solteiro', -1)" aria-label="Foto anterior">&#10094;</button>
+                        <button type="button" class="carousel-btn next" onclick="moveRoomCarousel('solteiro', 1)" aria-label="Próxima foto">&#10095;</button>
                     </div>
                     <div class="room-price">R$ 129,00 <span data-i18n="per_night">/ diária</span></div>
                     <div class="room-info">
                         <h3 data-i18n="room_title_solteiro">Suíte Solteiro</h3>
-                        <p data-i18n="desc_solteiro">Ideal para quem viaja sozinho e procura conforto e praticidade em
-                            Samambaia. Ambiente acolhedor e funcional.</p>
+                        <p data-i18n="desc_solteiro">Ideal para quem viaja sozinho e procura conforto e praticidade em Samambaia. Ambiente acolhedor e funcional.</p>
                         <ul class="room-amenities">
-                            <li><i class="fas fa-user"></i> <span data-i18n="amen_max1">Máx: 1 Pessoa</span></li>
-                            <li><i class="fas fa-bed"></i> <span data-i18n="amen_bed_solteiro">1 Cama de Solteiro</span>
-                            </li>
-                            <li><i class="fas fa-snowflake"></i> <span data-i18n="amen_features">Ar-condicionado, Wi-Fi,
-                                    Varanda</span></li>
+                            <li><i class="fas fa-user" aria-hidden="true"></i> <span data-i18n="amen_max1">Máx: 1 Pessoa</span></li>
+                            <li><i class="fas fa-bed" aria-hidden="true"></i> <span data-i18n="amen_bed_solteiro">1 Cama de Solteiro</span></li>
+                            <li><i class="fas fa-snowflake" aria-hidden="true"></i> <span data-i18n="amen_features">Ar-condicionado, Wi-Fi, Varanda</span></li>
                         </ul>
-                        <button class="btn-outline" onclick="iniciarReserva('solteiro')" data-i18n="btn_book">Reservar
-                            Suíte</button>
+                        <button type="button" class="btn-outline" onclick="app.reserva.iniciarReserva('solteiro')" data-i18n="btn_book">Reservar Suíte</button>
                     </div>
-                </div>
+                </article>
 
                 <!-- Suíte Casal -->
-                <div class="room-card animate-on-scroll">
+                <article class="room-card reveal-on-scroll">
                     <div class="room-carousel" id="carousel-casal">
                         <div class="room-carousel-track">
-                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/7678f686777f4793aab8528f8408e45d.png"
-                                alt="Suíte Casal" class="room-slide">
-                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/5741430835a54e8982fc1c7dde64f50c.png"
-                                alt="Suíte Casal" class="room-slide">
-                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/f1a94dd4692a4839a0116099c34d6177.png"
-                                alt="Suíte Casal" class="room-slide">
+                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/7678f686777f4793aab8528f8408e45d.png" alt="Suíte Casal - Foto 1" class="room-slide">
+                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/5741430835a54e8982fc1c7dde64f50c.png" alt="Suíte Casal - Foto 2" class="room-slide">
                         </div>
-                        <button class="carousel-btn prev" onclick="moveRoomCarousel('casal', -1)">&#10094;</button>
-                        <button class="carousel-btn next" onclick="moveRoomCarousel('casal', 1)">&#10095;</button>
+                        <button type="button" class="carousel-btn prev" onclick="moveRoomCarousel('casal', -1)" aria-label="Foto anterior">&#10094;</button>
+                        <button type="button" class="carousel-btn next" onclick="moveRoomCarousel('casal', 1)" aria-label="Próxima foto">&#10095;</button>
                     </div>
                     <div class="room-price">R$ 179,00 <span data-i18n="per_night">/ diária</span></div>
                     <div class="room-info">
                         <h3 data-i18n="room_title_casal">Suíte Casal</h3>
-                        <p data-i18n="desc_casal">Perfeita para casais que desejam uma estadia confortável e prática no
-                            DF. Comodidade e tranquilidade.</p>
+                        <p data-i18n="desc_casal">Perfeita para casais que desejam uma estadia confortável e prática no DF. Comodidade e tranquilidade.</p>
                         <ul class="room-amenities">
-                            <li><i class="fas fa-user-friends"></i> <span data-i18n="amen_max2">Máx: 2 Pessoas</span>
-                            </li>
-                            <li><i class="fas fa-bed"></i> <span data-i18n="amen_bed_casal">1 Cama de Casal</span></li>
-                            <li><i class="fas fa-snowflake"></i> <span data-i18n="amen_features">Ar-condicionado, Wi-Fi,
-                                    Varanda</span></li>
+                            <li><i class="fas fa-user-friends" aria-hidden="true"></i> <span data-i18n="amen_max2">Máx: 2 Pessoas</span></li>
+                            <li><i class="fas fa-bed" aria-hidden="true"></i> <span data-i18n="amen_bed_casal">1 Cama de Casal</span></li>
+                            <li><i class="fas fa-snowflake" aria-hidden="true"></i> <span data-i18n="amen_features">Ar-condicionado, Wi-Fi, Varanda</span></li>
                         </ul>
-                        <button class="btn-outline" onclick="iniciarReserva('casal')" data-i18n="btn_book">Reservar
-                            Suíte</button>
+                        <button type="button" class="btn-outline" onclick="app.reserva.iniciarReserva('casal')" data-i18n="btn_book">Reservar Suíte</button>
                     </div>
-                </div>
+                </article>
 
                 <!-- Suíte Duplo -->
-                <div class="room-card animate-on-scroll">
+                <article class="room-card reveal-on-scroll">
                     <div class="room-carousel" id="carousel-duplo">
                         <div class="room-carousel-track">
-                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/476979027871438b96951341ceaf4452.png"
-                                alt="Suíte Duplo" class="room-slide">
-                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/19d3d87b062a485e88a0032e74f56940.png"
-                                alt="Suíte Duplo" class="room-slide">
-                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/e2830c7cfa0b40bd83360993cc92de2a.png"
-                                alt="Suíte Duplo" class="room-slide">
+                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/476979027871438b96951341ceaf4452.png" alt="Suíte Duplo - Foto 1" class="room-slide">
+                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/19d3d87b062a485e88a0032e74f56940.png" alt="Suíte Duplo - Foto 2" class="room-slide">
                         </div>
-                        <button class="carousel-btn prev" onclick="moveRoomCarousel('duplo', -1)">&#10094;</button>
-                        <button class="carousel-btn next" onclick="moveRoomCarousel('duplo', 1)">&#10095;</button>
+                        <button type="button" class="carousel-btn prev" onclick="moveRoomCarousel('duplo', -1)" aria-label="Foto anterior">&#10094;</button>
+                        <button type="button" class="carousel-btn next" onclick="moveRoomCarousel('duplo', 1)" aria-label="Próxima foto">&#10095;</button>
                     </div>
                     <div class="room-price">R$ 199,00 <span data-i18n="per_night">/ diária</span></div>
                     <div class="room-info">
                         <h3 data-i18n="room_title_duplo">Suíte Duplo</h3>
-                        <p data-i18n="desc_duplo">Combina conforto, funcionalidade e praticidade. Excelente opção para
-                            amigos ou colegas de trabalho.</p>
+                        <p data-i18n="desc_duplo">Combina conforto, funcionalidade e praticidade. Excelente opção para amigos ou colegas de trabalho.</p>
                         <ul class="room-amenities">
-                            <li><i class="fas fa-user-friends"></i> <span data-i18n="amen_max2">Máx: 2 Pessoas</span>
-                            </li>
-                            <li><i class="fas fa-bed"></i> <span data-i18n="amen_bed_2solteiro">2 Camas de
-                                    Solteiro</span></li>
-                            <li><i class="fas fa-snowflake"></i> <span data-i18n="amen_features">Ar-condicionado, Wi-Fi,
-                                    Varanda</span></li>
+                            <li><i class="fas fa-user-friends" aria-hidden="true"></i> <span data-i18n="amen_max2">Máx: 2 Pessoas</span></li>
+                            <li><i class="fas fa-bed" aria-hidden="true"></i> <span data-i18n="amen_bed_2solteiro">2 Camas de Solteiro</span></li>
+                            <li><i class="fas fa-snowflake" aria-hidden="true"></i> <span data-i18n="amen_features">Ar-condicionado, Wi-Fi, Varanda</span></li>
                         </ul>
-                        <button class="btn-outline" onclick="iniciarReserva('duplo')" data-i18n="btn_book">Reservar
-                            Suíte</button>
+                        <button type="button" class="btn-outline" onclick="app.reserva.iniciarReserva('duplo')" data-i18n="btn_book">Reservar Suíte</button>
                     </div>
-                </div>
+                </article>
 
                 <!-- Suíte Triplo -->
-                <div class="room-card animate-on-scroll">
+                <article class="room-card reveal-on-scroll">
                     <div class="room-carousel" id="carousel-triplo">
                         <div class="room-carousel-track">
-                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/d42aff4a30614f44ba51cf93d389200c.png"
-                                alt="Suíte Triplo" class="room-slide">
-                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/b7aadd01bcb3455097f643fc9833ca1b.png"
-                                alt="Suíte Triplo" class="room-slide">
+                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/d42aff4a30614f44ba51cf93d389200c.png" alt="Suíte Triplo - Foto 1" class="room-slide">
+                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/b7aadd01bcb3455097f643fc9833ca1b.png" alt="Suíte Triplo - Foto 2" class="room-slide">
                         </div>
-                        <button class="carousel-btn prev" onclick="moveRoomCarousel('triplo', -1)">&#10094;</button>
-                        <button class="carousel-btn next" onclick="moveRoomCarousel('triplo', 1)">&#10095;</button>
+                        <button type="button" class="carousel-btn prev" onclick="moveRoomCarousel('triplo', -1)" aria-label="Foto anterior">&#10094;</button>
+                        <button type="button" class="carousel-btn next" onclick="moveRoomCarousel('triplo', 1)" aria-label="Próxima foto">&#10095;</button>
                     </div>
                     <div class="room-price">R$ 259,00 <span data-i18n="per_night">/ diária</span></div>
                     <div class="room-info">
                         <h3 data-i18n="room_title_triplo">Suíte Triplo</h3>
-                        <p data-i18n="desc_triplo">Com espaço para até três pessoas, é uma ótima escolha para pequenas
-                            famílias, amigos ou colegas de trabalho.</p>
+                        <p data-i18n="desc_triplo">Com espaço para até três pessoas, é uma ótima escolha para pequenas famílias, amigos ou colegas de trabalho.</p>
                         <ul class="room-amenities">
-                            <li><i class="fas fa-users"></i> <span data-i18n="amen_max3">Máx: 3 Pessoas</span></li>
-                            <li><i class="fas fa-bed"></i> <span data-i18n="amen_bed_triplo">Camas Solteiro/Casal</span>
-                            </li>
-                            <li><i class="fas fa-snowflake"></i> <span data-i18n="amen_features">Ar-condicionado, Wi-Fi,
-                                    Varanda</span></li>
+                            <li><i class="fas fa-users" aria-hidden="true"></i> <span data-i18n="amen_max3">Máx: 3 Pessoas</span></li>
+                            <li><i class="fas fa-bed" aria-hidden="true"></i> <span data-i18n="amen_bed_triplo">Camas Solteiro/Casal</span></li>
+                            <li><i class="fas fa-snowflake" aria-hidden="true"></i> <span data-i18n="amen_features">Ar-condicionado, Wi-Fi, Varanda</span></li>
                         </ul>
-                        <button class="btn-outline" onclick="iniciarReserva('triplo')" data-i18n="btn_book">Reservar
-                            Suíte</button>
+                        <button type="button" class="btn-outline" onclick="app.reserva.iniciarReserva('triplo')" data-i18n="btn_book">Reservar Suíte</button>
                     </div>
-                </div>
+                </article>
 
                 <!-- Suíte Família -->
-                <div class="room-card animate-on-scroll">
+                <article class="room-card reveal-on-scroll">
                     <div class="room-carousel" id="carousel-familia">
                         <div class="room-carousel-track">
-                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/cb5ead0a0a9045198751acf5b2e79830.png"
-                                alt="Suíte Família" class="room-slide">
-                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/1d586713cf0140638a7995522c211ab4.png"
-                                alt="Suíte Família" class="room-slide">
-                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/486dbf08ed784696875f87f96a14c9af.png"
-                                alt="Suíte Família" class="room-slide">
+                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/cb5ead0a0a9045198751acf5b2e79830.png" alt="Suíte Família - Foto 1" class="room-slide">
+                            <img src="https://hweb-images.br-se1.magaluobjects.com/6453ca81a37918434d5ccd81/1d586713cf0140638a7995522c211ab4.png" alt="Suíte Família - Foto 2" class="room-slide">
                         </div>
-                        <button class="carousel-btn prev" onclick="moveRoomCarousel('familia', -1)">&#10094;</button>
-                        <button class="carousel-btn next" onclick="moveRoomCarousel('familia', 1)">&#10095;</button>
+                        <button type="button" class="carousel-btn prev" onclick="moveRoomCarousel('familia', -1)" aria-label="Foto anterior">&#10094;</button>
+                        <button type="button" class="carousel-btn next" onclick="moveRoomCarousel('familia', 1)" aria-label="Próxima foto">&#10095;</button>
                     </div>
                     <div class="room-price">R$ 279,00 <span data-i18n="per_night">/ diária</span></div>
                     <div class="room-info">
                         <h3 data-i18n="room_title_familia">Suíte Família</h3>
-                        <p data-i18n="desc_familia">Ambiente amplo e funcional. Ideal para quem busca praticidade e
-                            conforto para pequenas famílias.</p>
+                        <p data-i18n="desc_familia">Ambiente amplo e funcional. Ideal para quem busca praticidade e conforto para pequenas famílias.</p>
                         <ul class="room-amenities">
-                            <li><i class="fas fa-users"></i> <span data-i18n="amen_max3">Máx: 3 Pessoas</span></li>
-                            <li><i class="fas fa-bed"></i> <span data-i18n="amen_bed_familia">1 Casal + 1
-                                    Solteiro</span></li>
-                            <li><i class="fas fa-snowflake"></i> <span data-i18n="amen_features">Ar-condicionado, Wi-Fi,
-                                    Varanda</span></li>
+                            <li><i class="fas fa-users" aria-hidden="true"></i> <span data-i18n="amen_max3">Máx: 3 Pessoas</span></li>
+                            <li><i class="fas fa-bed" aria-hidden="true"></i> <span data-i18n="amen_bed_familia">1 Casal + 1 Solteiro</span></li>
+                            <li><i class="fas fa-snowflake" aria-hidden="true"></i> <span data-i18n="amen_features">Ar-condicionado, Wi-Fi, Varanda</span></li>
                         </ul>
-                        <button class="btn-outline" onclick="iniciarReserva('familia')" data-i18n="btn_book">Reservar
-                            Suíte</button>
+                        <button type="button" class="btn-outline" onclick="app.reserva.iniciarReserva('familia')" data-i18n="btn_book">Reservar Suíte</button>
                     </div>
-                </div>
+                </article>
             </div>
         </div>
     </section>
@@ -285,34 +239,30 @@
     <!-- Estrutura / Serviços -->
     <section id="facilidades" class="amenities-section">
         <div class="container">
-            <div class="section-header text-center animate-on-scroll">
-                <h4 class="subtitle" data-i18n="amenities_sub">Estrutura</h4>
+            <div class="section-header text-center reveal-on-scroll">
+                <span class="subtitle" data-i18n="amenities_sub">Estrutura</span>
                 <h2 data-i18n="amenities_title">Tudo Para Sua Comodidade</h2>
             </div>
-            <div class="amenities-grid animate-on-scroll">
-                <div class="amenity-item">
-                    <i class="fas fa-coffee"></i>
+            <div class="amenities-grid">
+                <div class="amenity-item reveal-on-scroll">
+                    <i class="fas fa-coffee" aria-hidden="true"></i>
                     <h3 data-i18n="am_coffee_title">Café da Manhã Regional</h3>
-                    <p data-i18n="am_coffee_desc">Buffet com itens quentes e frios, pães, tapioca recheada, cuscuz,
-                        omeletes e bolos caseiros.</p>
+                    <p data-i18n="am_coffee_desc">Buffet com itens quentes e frios, pães, tapioca recheada, cuscuz, omeletes e bolos caseiros.</p>
                 </div>
-                <div class="amenity-item">
-                    <i class="fas fa-parking"></i>
+                <div class="amenity-item reveal-on-scroll">
+                    <i class="fas fa-parking" aria-hidden="true"></i>
                     <h3 data-i18n="am_park_title">Estacionamento Gratuito</h3>
-                    <p data-i18n="am_park_desc">Vagas privativas e seguras no local para todos os hóspedes sem custo
-                        adicional.</p>
+                    <p data-i18n="am_park_desc">Vagas privativas e seguras no local para todos os hóspedes sem custo adicional.</p>
                 </div>
-                <div class="amenity-item">
-                    <i class="fas fa-wifi"></i>
+                <div class="amenity-item reveal-on-scroll">
+                    <i class="fas fa-wifi" aria-hidden="true"></i>
                     <h3 data-i18n="am_wifi_title">Internet de Alta Velocidade</h3>
-                    <p data-i18n="am_wifi_desc">Conexão Wi-Fi gratuita e de qualidade em todas as dependências do hotel.
-                    </p>
+                    <p data-i18n="am_wifi_desc">Conexão Wi-Fi gratuita e de qualidade em todas as dependências do hotel.</p>
                 </div>
-                <div class="amenity-item">
-                    <i class="fas fa-concierge-bell"></i>
+                <div class="amenity-item reveal-on-scroll">
+                    <i class="fas fa-concierge-bell" aria-hidden="true"></i>
                     <h3 data-i18n="am_rec_title">Recepção 24 Horas</h3>
-                    <p data-i18n="am_rec_desc">Equipe sempre cordial e determinada a ajudar a qualquer hora do dia ou da
-                        noite.</p>
+                    <p data-i18n="am_rec_desc">Equipe sempre cordial e determinada a ajudar a qualquer hora do dia ou da noite.</p>
                 </div>
             </div>
         </div>
@@ -321,123 +271,118 @@
     <!-- Informações -->
     <section id="informacoes" class="info-section">
         <div class="container">
-            <div class="section-header text-center animate-on-scroll">
-                <h4 class="subtitle" data-i18n="info_sub">Informações Úteis</h4>
+            <div class="section-header text-center reveal-on-scroll">
+                <span class="subtitle" data-i18n="info_sub">Informações Úteis</span>
                 <h2 data-i18n="info_title">Tudo o Que Você Precisa Saber</h2>
             </div>
 
             <!-- Banner Pets -->
-            <div class="pet-friendly-banner animate-on-scroll">
-                <div class="pet-icon"><i class="fas fa-paw"></i></div>
+            <div class="pet-friendly-banner reveal-on-scroll">
+                <div class="pet-icon"><i class="fas fa-paw" aria-hidden="true"></i></div>
                 <div class="pet-text">
                     <h3 data-i18n="pet_title">Estadia para Pets</h3>
-                    <p data-i18n="pet_desc">Oferecemos hospedagem temporária para animais de estimação. Eles ficam em
-                        uma área reservada, cuidada por equipe treinada. Ideal para quem precisa viajar e não tem com
-                        quem deixá-los. (Serviço opcional no ato da reserva).</p>
+                    <p data-i18n="pet_desc">Oferecemos hospedagem temporária para animais de estimação. Eles ficam em uma área reservada, cuidada por equipe treinada. Ideal para quem precisa viajar e não tem com quem deixá-los.</p>
                     <ul>
-                        <li><strong data-i18n="pet_opt1_b">Até 3 diárias:</strong> <span data-i18n="pet_opt1_s">R$ 80,00
-                                por animal, por diária.</span></li>
-                        <li><strong data-i18n="pet_opt2_b">A partir de 4 diárias:</strong> <span
-                                data-i18n="pet_opt2_s">Taxa única de R$ 250,00 por animal para toda a estadia.</span>
-                        </li>
+                        <li><strong data-i18n="pet_opt1_b">Até 3 diárias:</strong> <span data-i18n="pet_opt1_s">R$ 80,00 por animal, por diária.</span></li>
+                        <li><strong data-i18n="pet_opt2_b">A partir de 4 diárias:</strong> <span data-i18n="pet_opt2_s">Taxa única de R$ 250,00 por animal para toda a estadia.</span></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="info-grid animate-on-scroll">
-                <div class="info-card">
-                    <h3 data-i18n="pol_time_title"><i class="far fa-clock"></i> Horários</h3>
+            <div class="info-grid">
+                <div class="info-card reveal-on-scroll">
+                    <h3 data-i18n="pol_time_title"><i class="far fa-clock" aria-hidden="true"></i> Horários</h3>
                     <ul>
-                        <li><strong data-i18n="pol_checkin_b">Check-in:</strong> <span data-i18n="pol_checkin_s">A
-                                partir das 14h.</span></li>
-                        <li><strong data-i18n="pol_checkout_b">Check-out:</strong> <span data-i18n="pol_checkout_s">Até
-                                às 12h.</span></li>
+                        <li><strong data-i18n="pol_checkin_b">Check-in:</strong> <span data-i18n="pol_checkin_s">A partir das 14h.</span></li>
+                        <li><strong data-i18n="pol_checkout_b">Check-out:</strong> <span data-i18n="pol_checkout_s">Até às 12h.</span></li>
                     </ul>
                 </div>
 
-                <div class="info-card">
-                    <h3 data-i18n="pol_kid_title"><i class="fas fa-child"></i> Política para Crianças</h3>
+                <div class="info-card reveal-on-scroll">
+                    <h3 data-i18n="pol_kid_title"><i class="fas fa-child" aria-hidden="true"></i> Política para Crianças</h3>
                     <ul>
-                        <li><strong data-i18n="pol_kid1_b">1 criança de até 7 anos:</strong> <span
-                                data-i18n="pol_kid1_s">não conta na ocupação máxima da suíte e tem hospedagem
-                                gratuita.</span></li>
-                        <li><strong data-i18n="pol_kid2_b">Acima de 7 anos ou mais de 1 criança:</strong> <span
-                                data-i18n="pol_kid2_s">consulte o hotel para verificar as condições e possíveis
-                                cobranças.</span></li>
-                        <li data-i18n="pol_kid3">Menores de 18 anos: devem estar acompanhados pelos pais ou apresentar a
-                            autorização exigida para a hospedagem.</li>
+                        <li><strong data-i18n="pol_kid1_b">1 criança de até 7 anos:</strong> <span data-i18n="pol_kid1_s">hospedagem gratuita.</span></li>
+                        <li><strong data-i18n="pol_kid2_b">Acima de 7 anos ou mais de 1 criança:</strong> <span data-i18n="pol_kid2_s">consulte o hotel para condições.</span></li>
                     </ul>
                 </div>
 
-                <div class="info-card">
-                    <h3 data-i18n="pol_pay_title"><i class="fas fa-credit-card"></i> Pagamento e Cancelamento</h3>
+                <div class="info-card reveal-on-scroll">
+                    <h3 data-i18n="pol_pay_title"><i class="fas fa-credit-card" aria-hidden="true"></i> Pagamento</h3>
                     <ul>
-                        <li><strong data-i18n="pol_pay1_b">Parcelamento:</strong> <span data-i18n="pol_pay1_s">Em até 3x
-                                sem juros (Visa/Mastercard) para despesas acima de R$ 500.</span></li>
-                        <li><strong data-i18n="pol_pay2_b">Cancelamento Grátis:</strong> <span
-                                data-i18n="pol_pay2_s">Até 28 horas úteis antes do check-in.</span></li>
+                        <li><strong data-i18n="pol_pay1_b">Parcelamento:</strong> <span data-i18n="pol_pay1_s">Em até 3x sem juros no cartão acima de R$ 500.</span></li>
+                        <li><strong data-i18n="pol_pay2_b">Cancelamento Grátis:</strong> <span data-i18n="pol_pay2_s">Até 28h úteis antes do check-in.</span></li>
                     </ul>
                 </div>
             </div>
 
             <!-- Localização -->
-            <div class="location-wrapper animate-on-scroll">
-                <h3 data-i18n="loc_title"><i class="fas fa-map-marker-alt"></i> Nossa Localização</h3>
+            <div class="location-wrapper reveal-on-scroll">
+                <h3 data-i18n="loc_title"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Nossa Localização</h3>
                 <p>Samambaia, Brasília - Distrito Federal</p>
-                <p><small data-i18n="loc_desc">Próximo a centros comerciais, paradas de metrô e com fácil acesso às vias
-                        principais do DF.</small></p>
+                <p><small data-i18n="loc_desc">Próximo a centros comerciais, paradas de metrô e vias principais do DF.</small></p>
                 <div class="map-container">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3837.284646271253!2d-48.0974136846669!3d-15.866763988941748!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x6e5225c57b850d76!2zMTXCsDUyJzAwLjQiUyA0OMKwMDUnNDIuOCJX!5e0!3m2!1spt-BR!2sbr!4v1650000000000!5m2!1spt-BR!2sbr"
-                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe title="Mapa de localização do Hotel Samamba em Samambaia" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3837.284646271253!2d-48.0974136846669!3d-15.866763988941748!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x6e5225c57b850d76!2zMTXCsDUyJzAwLjQiUyA0WMKwMDUnNDIuOCJX!5e0!3m2!1spt-BR!2sbr!4v1650000000000!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer Corrigido -->
     <footer>
         <div class="container footer-grid">
             <div class="footer-col brand-info">
                 <h3>Hotel Samamba<span>.</span></h3>
-                <p data-i18n="ft_desc">Uma excelente opção de hospedagem em Samambaia, DF, com suítes aconchegantes e
-                    amplas. CNPJ: 33.494.352/0001-08</p>
+                <p data-i18n="ft_desc">Uma excelente opção de hospedagem em Samambaia, DF. CNPJ: 33.494.352/0001-08</p>
                 <div class="social-links">
-                    <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://api.whatsapp.com/send/?phone=556130488201" target="_blank"><i
-                            class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                    <a href="https://api.whatsapp.com/send/?phone=556130488201" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
                 </div>
             </div>
             <div class="footer-col links">
                 <h4 data-i18n="ft_links">Links Rápidos</h4>
                 <ul>
-                    <li><a href="#inicio" data-i18n="nav_home">Início</a></li>
                     <li><a href="#quartos" data-i18n="nav_rooms">Suítes</a></li>
-                    <li><a href="#informacoes" data-i18n="nav_info">Regras e Políticas</a></li>
+                    <li><a href="javascript:void(0)" onclick="abrirModalGenerico('privacidade')" data-i18n="ft_privacy">Política de Privacidade (LGPD)</a></li>
+                    <li><a href="javascript:void(0)" onclick="abrirModalGenerico('termos')" data-i18n="ft_terms">Termos de Uso</a></li>
+                    <li><a href="javascript:void(0)" onclick="abrirModalGenerico('cookies')" data-i18n="ft_cookies">Gerenciar Cookies</a></li>
                 </ul>
             </div>
             <div class="footer-col contato">
                 <h4 data-i18n="nav_contact">Contato</h4>
-                <p><i class="fas fa-map-marker-alt"></i> Samambaia, Brasília, DF</p>
-                <p><i class="fas fa-phone-alt"></i> +55 (61) 3048-8201</p>
-                <p><a href="https://api.whatsapp.com" target="_blank" style="color:#25D366; font-weight:bold;"><i
-                            class="fab fa-whatsapp"></i> <span data-i18n="ft_wpp">Chamar no WhatsApp</span></a></p>
+                <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Samambaia, Brasília, DF</p>
+                <p><i class="fas fa-phone-alt" aria-hidden="true"></i> +55 (61) 3048-8201</p>
+                <p><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:contato@hotelsamamba.com.br" style="color: inherit;">contato@hotelsamamba.com.br</a></p>
+                <p><a href="https://api.whatsapp.com/send/?phone=556130488201" target="_blank" rel="noopener noreferrer" style="color:#25D366; font-weight:bold;"><i class="fab fa-whatsapp" aria-hidden="true"></i> <span data-i18n="ft_wpp">Chamar no WhatsApp</span></a></p>
             </div>
         </div>
         <div class="footer-bottom text-center">
-            <p>&copy; 2026 Hotel Samamba. Todos os direitos reservados.</p>
+            <p data-i18n="ft_copyright">&copy; 2026 Hotel Samamba. Todos os direitos reservados. Conformidade LGPD & Acessibilidade W3C.</p>
         </div>
     </footer>
 
-    <!-- Modal Dinâmico de Reserva -->
-    <div id="modal-overlay" class="modal-overlay hidden">
+    <!-- Modal Dinâmico Principal -->
+    <div id="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true">
         <div class="modal" id="modal-content">
             <!-- Conteúdo injetado via JS -->
         </div>
     </div>
 
-    <div id="toast" class="toast hidden"></div>
+    <!-- Banner Compacto de Cookies -->
+    <div id="cookie-banner" class="cookie-banner-bottom" role="dialog" aria-label="Aviso de cookies" style="display: none;">
+        <div class="cookie-compact-container">
+            <div class="cookie-text-compact">
+                <i class="fas fa-cookie-bite cookie-icon" aria-hidden="true"></i>
+                <p><span data-i18n="ck_banner_text">Utilizamos cookies para melhorar sua experiência no site. Ao continuar navegando, você concorda com nossa</span> <a href="javascript:void(0)" onclick="abrirModalGenerico('privacidade')" data-i18n="ft_privacy">Política de Privacidade</a>.</p>
+            </div>
+            <div class="cookie-botoes-compact">
+                <button id="btn-rejeitar-cookies" class="btn-cookie-secundario" type="button" data-i18n="ck_btn_refuse">Recusar opcionais</button>
+                <button id="btn-aceitar-cookies" class="btn-cookie-primario" type="button" data-i18n="ck_btn_accept">Aceitar todos</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
 
     <script src="script.js"></script>
 </body>
