@@ -85,17 +85,37 @@ class GerenciadorAcessibilidade {
             return;
         }
 
-        const textoParaLer = document.querySelector('.hero-content h1')?.textContent + ". " + 
-                             document.querySelector('.about-text p')?.textContent;
+        // Captura todas as seções visíveis e o rodapé, ignorando a barra superior e modais fechados
+        const secoes = document.querySelectorAll('section[id], footer');
+        let textos = [];
+
+        secoes.forEach(secao => {
+            // innerText pega apenas o texto visível renderizado na tela (ignora tags e elementos com display: none)
+            const textoLimpo = secao.innerText
+                .replace(/[\u276E\u276F×]/g, '') // Remove símbolos de setas dos carrosséis (❮ ❯ ×)
+                .replace(/\s+/g, ' ') // Remove excesso de quebras de linha e espaços
+                .trim();
+            
+            if (textoLimpo) {
+                textos.push(textoLimpo);
+            }
+        });
+
+        const textoParaLer = textos.join('. ');
+
+        // Garante que qualquer fila anterior seja limpa antes de começar
+        window.speechSynthesis.cancel();
 
         const utterance = new SpeechSynthesisUtterance(textoParaLer);
         utterance.lang = app.traducao.currentLang === 'pt' ? 'pt-BR' : app.traducao.currentLang === 'es' ? 'es-ES' : 'en-US';
+        utterance.rate = 1.05; // Velocidade levemente mais fluida para textos longos
         
         utterance.onend = () => { this.isReading = false; };
+        utterance.onerror = () => { this.isReading = false; };
         
         window.speechSynthesis.speak(utterance);
         this.isReading = true;
-        if (window.app) window.app.showToast('Iniciando leitura da tela...');
+        if (window.app) window.app.showToast('Iniciando leitura completa da página...');
     }
 }
 
