@@ -1429,3 +1429,158 @@ footer {
         flex: 1;
     }
 }
+/* CHECKOUT COMPLETO: CARTÃO 10X, PIX QR CODE E BOLETO */
+.payment-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.pay-tab {
+    flex: 1;
+    padding: 10px 8px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    background: var(--white);
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.pay-tab:hover {
+    border-color: var(--primary);
+}
+
+.pay-tab.active {
+    border-color: var(--primary);
+    background: rgba(2, 132, 199, 0.1);
+    color: var(--primary);
+}
+
+.select-modal {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    background: var(--white);
+    color: var(--text-main);
+    outline: none;
+}
+
+.pix-box,
+.boleto-box {
+    background: var(--white);
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px dashed var(--primary);
+}
+
+.pix-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.fake-code-box {
+    background: var(--bg-light);
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.78rem;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 8px;
+}
+
+.btn-copy-pix {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+}
+
+.btn-copy-pix:hover {
+    background: var(--primary-dark);
+}
+
+.voucher-box {
+    background: #F0FDF4;
+    border: 2px solid #10B981;
+    padding: 18px;
+    border-radius: 14px;
+    margin-bottom: 22px;
+    text-align: left;
+    color: #065F46;
+}
+
+.voucher-box.voucher-pending {
+    background: #FFFBEB;
+    border-color: #F59E0B;
+    color: #92400E;
+}
+
+.voucher-box p {
+    color: inherit !important;
+    font-size: 0.92rem !important;
+    margin-bottom: 6px !important;
+}
+
+.voucher-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #ffffff;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+/* Suporte Alto Contraste W3C */
+body.high-contrast .pay-tab,
+body.high-contrast .select-modal,
+body.high-contrast .pix-box,
+body.high-contrast .boleto-box,
+body.high-contrast .fake-code-box,
+body.high-contrast .voucher-box {
+    background: #000000 !important;
+    color: #FFFFFF !important;
+    border-color: #FFFF00 !important;
+}
+
+body.high-contrast .pay-tab.active,
+body.high-contrast .btn-copy-pix,
+body.high-contrast .voucher-badge {
+    background: #FFFF00 !important;
+    color: #000000 !important;
+}
+
+@media (max-width: 600px) {
+    .pix-box {
+        flex-direction: column;
+        text-align: center;
+    }
+    .payment-tabs {
+        flex-direction: column;
+    }
+}

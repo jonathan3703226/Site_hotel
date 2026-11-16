@@ -85,15 +85,13 @@ class GerenciadorAcessibilidade {
             return;
         }
 
-        // Captura todas as seções visíveis e o rodapé, ignorando a barra superior e modais fechados
         const secoes = document.querySelectorAll('section[id], footer');
         let textos = [];
 
         secoes.forEach(secao => {
-            // innerText pega apenas o texto visível renderizado na tela (ignora tags e elementos com display: none)
             const textoLimpo = secao.innerText
-                .replace(/[\u276E\u276F×]/g, '') // Remove símbolos de setas dos carrosséis (❮ ❯ ×)
-                .replace(/\s+/g, ' ') // Remove excesso de quebras de linha e espaços
+                .replace(/[\u276E\u276F×]/g, '')
+                .replace(/\s+/g, ' ')
                 .trim();
             
             if (textoLimpo) {
@@ -102,13 +100,11 @@ class GerenciadorAcessibilidade {
         });
 
         const textoParaLer = textos.join('. ');
-
-        // Garante que qualquer fila anterior seja limpa antes de começar
         window.speechSynthesis.cancel();
 
         const utterance = new SpeechSynthesisUtterance(textoParaLer);
         utterance.lang = app.traducao.currentLang === 'pt' ? 'pt-BR' : app.traducao.currentLang === 'es' ? 'es-ES' : 'en-US';
-        utterance.rate = 1.05; // Velocidade levemente mais fluida para textos longos
+        utterance.rate = 1.05;
         
         utterance.onend = () => { this.isReading = false; };
         utterance.onerror = () => { this.isReading = false; };
@@ -161,15 +157,32 @@ class GerenciadorTraducao {
                 ft_copyright: "&copy; 2026 Hotel Samamba. Todos os direitos reservados. Conformidade LGPD & Acessibilidade W3C.",
                 ck_banner_text: "Utilizamos cookies para melhorar sua experiência no site. Ao continuar navegando, você concorda com nossa",
                 ck_btn_refuse: "Recusar opcionais", ck_btn_accept: "Aceitar todos",
-                md_title: "Resumo da Pré-reserva", md_stay_details: "Detalhes da Estadia", md_checkin: "Check-in:", md_checkout: "Check-out:",
-                md_total_nights: "Total de Diárias:", md_suite: "Suíte:", md_max_pax: "Ocupação máxima:", md_person: "pessoa(s)",
-                md_daily_rate: "Valor da Diária:", md_pet_service: "Serviço de Pets", md_pet_ask: "Deseja incluir estadia na área para pet?",
-                md_no: "Não", md_yes: "Sim", md_pet_limit: "É permitido levar apenas 1 pet por reserva.", md_subtotal_room: "Subtotal Acomodação:",
-                md_pet_subtotal: "Serviço Pet (1 animal):", md_total_res: "Total da Reserva:", md_btn_confirm: "Confirmar Pré-reserva",
-                md_contact_header: "Seus Dados para Confirmação", md_email_label: "E-mail para confirmação *", md_wpp_label: "WhatsApp / Telefone (Opcional)",
-                md_hint_invalid: "* Por favor, preencha um e-mail válido para concluir a pré-reserva.", md_hint_valid: "✓ E-mail válido registrado!",
-                md_success_title: "Solicitação Enviada!", md_success_desc: "Sua solicitação de pré-reserva foi registrada com sucesso! Nossa equipe enviará a confirmação e as instruções de pagamento para:", md_btn_back: "Voltar para o site",
-                md_btn_close: "Compreendi e Fechar"
+                // Checkout Completo
+                md_title: "Checkout & Pagamento Online", md_stay_details: "Detalhes da Estadia", md_checkin: "Check-in:", md_checkout: "Check-out:",
+                md_total_nights: "Total de Diárias:", md_suite: "Suíte:", md_daily_rate: "Valor da Diária:",
+                md_pet_service: "Serviço de Pets", md_pet_ask: "Deseja incluir estadia na área para pet?",
+                md_no: "Não", md_yes: "Sim", md_pet_limit: "É permitido levar apenas 1 pet por reserva.",
+                md_guest_header: "Dados do Hóspede (Check-in Digital)", md_name_label: "Nome Completo *", md_name_ph: "Nome do titular da reserva",
+                md_email_label: "E-mail para Voucher *", md_email_ph: "seuemail@exemplo.com",
+                md_pay_header: "Forma de Pagamento", md_pay_card: "Cartão (até 10x)", md_pay_pix: "PIX", md_pay_boleto: "Boleto",
+                md_card_num: "Número do Cartão *", md_card_holder: "Nome Impresso no Cartão *", md_card_exp: "Validade *", md_card_cvv: "CVV *", md_card_inst: "Opções de Parcelamento",
+                md_no_interest: "sem juros", md_with_interest: "com juros (1,99% a.m.)",
+                md_pix_title: "QR Code PIX Instantâneo", md_pix_desc: "Escaneie o QR Code abaixo com o app do seu banco ou copie o código. A confirmação na recepção é imediata.",
+                md_pix_copy: "Copiar Código PIX", md_pix_copied: "Código PIX copiado para a área de transferência!",
+                md_bol_title: "Boleto Bancário Registrado", md_bol_benef: "Beneficiário: HOTEL SAMAMBA LTDA • CNPJ: 33.494.352/0001-08",
+                md_bol_due: "Vencimento:", md_bol_copy: "Copiar Linha Digitável", md_bol_copied: "Linha digitável do boleto copiada!",
+                md_bol_note: "Sua suíte fica pré-bloqueada por 48h aguardando a compensação bancária.",
+                md_subtotal_room: "Subtotal Acomodação:", md_pet_subtotal: "Serviço Pet (1 animal):", md_interest_row: "Encargos de Parcelamento:", md_total_res: "Total Final:",
+                md_btn_pay_card: "Confirmar Pagamento no Cartão", md_btn_pay_pix: "Já fiz o PIX • Confirmar Reserva", md_btn_pay_bol: "Gerar Boleto e Reservar",
+                md_processing: "Sincronizando reserva com o sistema da recepção...",
+                md_err_fields: "* Por favor, preencha corretamente seu nome, e-mail válido e os dados do pagamento.",
+                md_success_title_paid: "Pagamento Aprovado & Reserva Confirmada!",
+                md_success_title_bol: "Boleto Gerado & Suíte Pré-Reservada!",
+                md_success_desc_paid: "Sua reserva já foi integrada automaticamente ao sistema da recepção do Hotel Samamba. O comprovante e o voucher de check-in foram enviados para o seu e-mail.",
+                md_success_desc_bol: "O boleto foi registrado e enviado para o seu e-mail. Assim que o banco confirmar o pagamento, o check-in será liberado automaticamente na recepção.",
+                md_voucher_code: "Código da Reserva:", md_voucher_protocol: "Protocolo Recepção:",
+                md_status_paid: "Status: PAGO • Confirmado na Recepção", md_status_bol: "Status: AGUARDANDO COMPENSAÇÃO BANCÁRIA",
+                md_btn_back: "Concluir e Voltar ao Site", md_btn_close: "Compreendi e Fechar"
             },
             en: {
                 nav_about: "Hotel", nav_rooms: "Suites", nav_services: "Services", nav_info: "Info", nav_contact: "Contact Us",
@@ -208,15 +221,32 @@ class GerenciadorTraducao {
                 ft_copyright: "&copy; 2026 Hotel Samamba. All rights reserved. GDPR Compliance & W3C Accessibility.",
                 ck_banner_text: "We use cookies to improve your experience on our website. By continuing, you agree to our",
                 ck_btn_refuse: "Decline optional", ck_btn_accept: "Accept all",
-                md_title: "Pre-reservation Summary", md_stay_details: "Stay Details", md_checkin: "Check-in:", md_checkout: "Check-out:",
-                md_total_nights: "Total Nights:", md_suite: "Suite:", md_max_pax: "Max Occupancy:", md_person: "person(s)",
-                md_daily_rate: "Daily Rate:", md_pet_service: "Pet Service", md_pet_ask: "Would you like to include pet accommodation?",
-                md_no: "No", md_yes: "Yes", md_pet_limit: "Only 1 pet is allowed per reservation.", md_subtotal_room: "Accommodation Subtotal:",
-                md_pet_subtotal: "Pet Service (1 pet):", md_total_res: "Total Amount:", md_btn_confirm: "Confirm Pre-reservation",
-                md_contact_header: "Your Information for Confirmation", md_email_label: "Email for confirmation *", md_wpp_label: "WhatsApp / Phone (Optional)",
-                md_hint_invalid: "* Please fill in a valid email address to complete your pre-reservation.", md_hint_valid: "✓ Valid email registered!",
-                md_success_title: "Request Sent!", md_success_desc: "Your pre-booking request was successfully registered! Our team will send confirmation and payment instructions to:", md_btn_back: "Back to website",
-                md_btn_close: "Understood & Close"
+                // Checkout
+                md_title: "Online Checkout & Payment", md_stay_details: "Stay Details", md_checkin: "Check-in:", md_checkout: "Check-out:",
+                md_total_nights: "Total Nights:", md_suite: "Suite:", md_daily_rate: "Daily Rate:",
+                md_pet_service: "Pet Service", md_pet_ask: "Would you like to include pet accommodation?",
+                md_no: "No", md_yes: "Yes", md_pet_limit: "Only 1 pet is allowed per reservation.",
+                md_guest_header: "Guest Details (Digital Check-in)", md_name_label: "Full Name *", md_name_ph: "Reservation holder name",
+                md_email_label: "Email for Voucher *", md_email_ph: "youremail@example.com",
+                md_pay_header: "Payment Method", md_pay_card: "Card (up to 10x)", md_pay_pix: "PIX", md_pay_boleto: "Bank Slip",
+                md_card_num: "Card Number *", md_card_holder: "Cardholder Name *", md_card_exp: "Expiry *", md_card_cvv: "CVV *", md_card_inst: "Installments",
+                md_no_interest: "interest-free", md_with_interest: "with interest (1.99%/mo)",
+                md_pix_title: "Instant PIX QR Code", md_pix_desc: "Scan the QR Code with your banking app or copy the code. Front desk confirmation is immediate.",
+                md_pix_copy: "Copy PIX Code", md_pix_copied: "PIX code copied to clipboard!",
+                md_bol_title: "Registered Bank Slip (Boleto)", md_bol_benef: "Payee: HOTEL SAMAMBA LTDA • CNPJ: 33.494.352/0001-08",
+                md_bol_due: "Due Date:", md_bol_copy: "Copy Barcode Number", md_bol_copied: "Barcode number copied!",
+                md_bol_note: "Your suite is held for 48 hours awaiting bank clearance.",
+                md_subtotal_room: "Accommodation Subtotal:", md_pet_subtotal: "Pet Service (1 pet):", md_interest_row: "Installment Interest:", md_total_res: "Final Total:",
+                md_btn_pay_card: "Confirm Card Payment", md_btn_pay_pix: "I've Paid via PIX • Confirm Booking", md_btn_pay_bol: "Generate Slip & Book",
+                md_processing: "Syncing reservation with front desk system...",
+                md_err_fields: "* Please fill in your full name, valid email, and payment details.",
+                md_success_title_paid: "Payment Approved & Booking Confirmed!",
+                md_success_title_bol: "Bank Slip Generated & Suite Reserved!",
+                md_success_desc_paid: "Your booking has been automatically synced with Hotel Samamba's front desk. Your digital voucher was sent to your email.",
+                md_success_desc_bol: "Your bank slip was registered and emailed. Once cleared, check-in is automatically unlocked at the front desk.",
+                md_voucher_code: "Booking Code:", md_voucher_protocol: "Front Desk Protocol:",
+                md_status_paid: "Status: PAID • Confirmed at Front Desk", md_status_bol: "Status: AWAITING BANK CLEARANCE",
+                md_btn_back: "Finish & Back to Website", md_btn_close: "Understood & Close"
             },
             es: {
                 nav_about: "El Hotel", nav_rooms: "Suites", nav_services: "Servicios", nav_info: "Información", nav_contact: "Contáctenos",
@@ -255,15 +285,32 @@ class GerenciadorTraducao {
                 ft_copyright: "&copy; 2026 Hotel Samamba. Todos los derechos reservados. Conformidad LGPD y Accesibilidad W3C.",
                 ck_banner_text: "Utilizamos cookies para mejorar su experiencia en nuestro sitio. Al continuar navegando, usted acepta nuestra",
                 ck_btn_refuse: "Rechazar opcionales", ck_btn_accept: "Aceptar todos",
-                md_title: "Resumen de la Pre-reserva", md_stay_details: "Detalles de la Estancia", md_checkin: "Check-in:", md_checkout: "Check-out:",
-                md_total_nights: "Noches Totales:", md_suite: "Suite:", md_max_pax: "Ocupación máxima:", md_person: "persona(s)",
-                md_daily_rate: "Precio por Noche:", md_pet_service: "Servicio de Mascotas", md_pet_ask: "¿Desea incluir estancia en el área de mascotas?",
-                md_no: "No", md_yes: "Sí", md_pet_limit: "Solo se permite 1 mascota por reserva.", md_subtotal_room: "Subtotal Alojamiento:",
-                md_pet_subtotal: "Servicio Mascotas (1 mascota):", md_total_res: "Total Reserva:", md_btn_confirm: "Confirmar Pre-reserva",
-                md_contact_header: "Sus Datos para Confirmación", md_email_label: "Correo electrónico para confirmación *", md_wpp_label: "WhatsApp / Teléfono (Opcional)",
-                md_hint_invalid: "* Por favor, ingrese un correo válido para completar su pre-reserva.", md_hint_valid: "✓ ¡Correo válido registrado!",
-                md_success_title: "¡Solicitud Enviada!", md_success_desc: "¡Su solicitud de pre-reserva ha sido registrada con éxito! Nuestro equipo enviará la confirmación e instrucciones a:", md_btn_back: "Volver al sitio",
-                md_btn_close: "Comprendido y Cerrar"
+                // Checkout
+                md_title: "Checkout y Pago Online", md_stay_details: "Detalles de la Estancia", md_checkin: "Check-in:", md_checkout: "Check-out:",
+                md_total_nights: "Noches Totales:", md_suite: "Suite:", md_daily_rate: "Precio por Noche:",
+                md_pet_service: "Servicio de Mascotas", md_pet_ask: "¿Desea incluir estancia en el área de mascotas?",
+                md_no: "No", md_yes: "Sí", md_pet_limit: "Solo se permite 1 mascota por reserva.",
+                md_guest_header: "Datos del Huésped (Check-in Digital)", md_name_label: "Nombre Completo *", md_name_ph: "Nombre del titular de la reserva",
+                md_email_label: "Correo para Voucher *", md_email_ph: "sucorreo@ejemplo.com",
+                md_pay_header: "Método de Pago", md_pay_card: "Tarjeta (hasta 10x)", md_pay_pix: "PIX", md_pay_boleto: "Boleto",
+                md_card_num: "Número de Tarjeta *", md_card_holder: "Nombre en la Tarjeta *", md_card_exp: "Vencimiento *", md_card_cvv: "CVV *", md_card_inst: "Opciones de Cuotas",
+                md_no_interest: "sin interés", md_with_interest: "con interés (1,99% mensual)",
+                md_pix_title: "Código QR PIX Instantáneo", md_pix_desc: "Escanee el código QR con su banco o copie el código. La confirmación en recepción es inmediata.",
+                md_pix_copy: "Copiar Código PIX", md_pix_copied: "¡Código PIX copiado!",
+                md_bol_title: "Boleto Bancario Registrado", md_bol_benef: "Beneficiario: HOTEL SAMAMBA LTDA • CNPJ: 33.494.352/0001-08",
+                md_bol_due: "Vencimiento:", md_bol_copy: "Copiar Línea Digitable", md_bol_copied: "¡Línea digitable copiada!",
+                md_bol_note: "Su suite queda pre-bloqueada por 48h esperando la compensación bancaria.",
+                md_subtotal_room: "Subtotal Alojamiento:", md_pet_subtotal: "Servicio Mascotas (1 mascota):", md_interest_row: "Intereses de Cuotas:", md_total_res: "Total Final:",
+                md_btn_pay_card: "Confirmar Pago con Tarjeta", md_btn_pay_pix: "Ya pagué con PIX • Confirmar", md_btn_pay_bol: "Generar Boleto y Reservar",
+                md_processing: "Sincronizando reserva con recepción...",
+                md_err_fields: "* Complete su nombre, correo válido y datos de pago.",
+                md_success_title_paid: "¡Pago Aprobado y Reserva Confirmada!",
+                md_success_title_bol: "¡Boleto Generado y Suite Pre-Reservada!",
+                md_success_desc_paid: "Su reserva ya fue integrada automáticamente al sistema de recepción del Hotel Samamba. El voucher digital fue enviado a su correo.",
+                md_success_desc_bol: "El boleto fue registrado y enviado a su correo. En cuanto el banco confirme el pago, el check-in se liberará en recepción.",
+                md_voucher_code: "Código de Reserva:", md_voucher_protocol: "Protocolo Recepción:",
+                md_status_paid: "Estado: PAGADO • Confirmado en Recepción", md_status_bol: "Estado: ESPERANDO COMPENSACIÓN BANCARIA",
+                md_btn_back: "Concluir y Volver al Sitio", md_btn_close: "Comprendido y Cerrar"
             }
         };
         this.init();
@@ -327,7 +374,6 @@ class GerenciadorCookies {
     }
 }
 
-// Gerenciador de Modais com Tradução Dinâmica e Instantânea
 class GerenciadorModal {
     constructor() {
         this.overlay = document.getElementById('modal-overlay');
@@ -361,9 +407,7 @@ class GerenciadorModal {
     abrirModalGenerico(tipo) {
         const lang = (window.app && window.app.traducao) ? window.app.traducao.currentLang : (localStorage.getItem('hotel_lang') || 'pt');
         const txt = (window.app && window.app.traducao) ? window.app.traducao.dicionario[lang] : {};
-
-        // Define o texto exato do botão de fechar para cada idioma
-        const btnTextoFechar = lang === 'en' ? 'Understood & Close' : lang === 'es' ? 'Comprendido y Cerrar' : 'Compreendi e Fechar';
+        const btnTextoFechar = txt.md_btn_close || 'Compreendi e Fechar';
 
         let titulo = '';
         let corpo = '';
@@ -374,75 +418,75 @@ class GerenciadorModal {
                 <div class="generic-modal-body">
                     <p><strong>Hotel Samamba</strong> (CNPJ: 33.494.352/0001-08) values your privacy and ensures compliance with General Data Protection Regulation standards.</p>
                     <h3>1. Data Collection & Purpose</h3>
-                    <p>We collect personal information (Name, Email, Phone/WhatsApp) strictly to verify room availability, send pre-booking vouchers, and communicate payment terms.</p>
+                    <p>We collect personal information (Name, Email) and encrypted payment tokens strictly to confirm room bookings and integrate check-in data with our front desk.</p>
                     <h3>2. Data Retention & Security</h3>
-                    <p>Your personal data is never sold, shared, or transferred to third parties for marketing purposes. Data is safely stored for administrative compliance.</p>
+                    <p>Your personal and payment data are processed securely and never sold or transferred to third parties.</p>
                     <h3>3. Guest Rights</h3>
-                    <p>Under privacy laws, guests have the right to request access, correction, or permanent deletion of their personal data from our records at any time by emailing <em>contato@hotelsamamba.com.br</em>.</p>
+                    <p>Guests may request access, correction, or deletion of their data at any time via <em>contato@hotelsamamba.com.br</em>.</p>
                 </div>
             ` : lang === 'es' ? `
                 <div class="generic-modal-body">
                     <p>El <strong>Hotel Samamba</strong> (CNPJ: 33.494.352/0001-08) garantiza el cumplimiento de las normativas de protección de datos personales.</p>
                     <h3>1. Recopilación de Datos</h3>
-                    <p>Recopilamos nombre, correo electrónico y teléfono/WhatsApp exclusivamente para verificar la disponibilidad de suites, emitir vales de pre-reserva e instruir los pagos.</p>
+                    <p>Recopilamos nombre, correo electrónico y datos de pago cifrados exclusivamente para confirmar reservas e integrar el check-in con nuestra recepción.</p>
                     <h3>2. Almacenamiento y Seguridad</h3>
-                    <p>Sus datos personales no se comparten con terceros para fines comerciales y se conservan de forma segura bajo estándares de encriptación.</p>
+                    <p>Sus datos personales no se comparten con terceros para fines comerciales y se conservan bajo estándares de seguridad.</p>
                     <h3>3. Derechos del Usuario</h3>
-                    <p>Puede solicitar el acceso, corrección o eliminación completa de sus datos enviando un correo a <em>contato@hotelsamamba.com.br</em>.</p>
+                    <p>Puede solicitar el acceso, corrección o eliminación de sus datos enviando un correo a <em>contato@hotelsamamba.com.br</em>.</p>
                 </div>
             ` : `
                 <div class="generic-modal-body">
                     <p>O <strong>Hotel Samamba</strong> (CNPJ: 33.494.352/0001-08) valoriza a sua privacidade e garante a conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD - Lei nº 13.709/2018).</p>
                     <h3>1. Coleta e Finalidade dos Dados</h3>
-                    <p>Coletamos informações pessoais como nome, e-mail e telefone/WhatsApp com a finalidade exclusiva de processar solicitações de pré-reserva, confirmar disponibilidade de acomodações e fornecer suporte durante a hospedagem.</p>
-                    <h3>2. Armazenamento e Compartilhamento</h3>
-                    <p>Seus dados pessoais são armazenados em ambiente seguro e <strong>jamais serão comercializados ou compartilhados com terceiros</strong> para fins publicitários ou promocionais sem o seu consentimento prévio.</p>
+                    <p>Coletamos nome completo, e-mail e dados criptografados de pagamento com a finalidade exclusiva de confirmar sua reserva diretamente no sistema da recepção e emitir seu voucher digital.</p>
+                    <h3>2. Armazenamento e Segurança</h3>
+                    <p>Seus dados são processados em ambiente seguro e <strong>jamais serão comercializados ou compartilhados com terceiros</strong>.</p>
                     <h3>3. Seus Direitos como Titular</h3>
-                    <p>Você pode solicitar a qualquer momento a confirmação da existência de tratamento, correção de dados incompletos ou a exclusão definitiva das suas informações de nossos registros mediante contato direto pelo e-mail <em>contato@hotelsamamba.com.br</em>.</p>
+                    <p>Você pode solicitar acesso, correção ou exclusão definitiva das suas informações mediante contato pelo e-mail <em>contato@hotelsamamba.com.br</em>.</p>
                 </div>
             `;
         } else if (tipo === 'termos') {
             titulo = txt.ft_terms || 'Termos de Uso';
             corpo = lang === 'en' ? `
                 <div class="generic-modal-body">
-                    <p>Welcome to <strong>Hotel Samamba</strong>. By utilizing our online reservation system, you agree to the following operational terms:</p>
-                    <h3>1. Pre-Booking Nature</h3>
-                    <p>All bookings requested through this website operate as <strong>Pre-Reservations</strong>. Reservation confirmation is contingent upon physical availability and reception validation.</p>
+                    <p>Welcome to <strong>Hotel Samamba</strong>. By utilizing our online booking and payment system, you agree to the following terms:</p>
+                    <h3>1. Instant Booking Confirmation</h3>
+                    <p>Reservations paid via Credit Card or PIX are automatically confirmed and synced with our front desk system.</p>
                     <h3>2. Check-in & Check-out Rules</h3>
-                    <p>Check-in starts at 14:00 (2:00 PM). Check-out must be completed by 12:00 (12:00 PM noon). Extensions are subject to suite availability and extra hourly charges.</p>
+                    <p>Check-in starts at 14:00 (2:00 PM). Check-out must be completed by 12:00 (12:00 PM noon).</p>
                     <h3>3. Cancellation Policy</h3>
-                    <p>Free cancellation is guaranteed up to 28 business hours prior to check-in. Cancellations made after this period are non-refundable.</p>
+                    <p>Free cancellation with full refund is guaranteed up to 28 business hours prior to check-in.</p>
                 </div>
             ` : lang === 'es' ? `
                 <div class="generic-modal-body">
-                    <p>Bienvenido al <strong>Hotel Samamba</strong>. Al utilizar nuestro sistema de reservas en línea, acepta los siguientes términos de servicio:</p>
-                    <h3>1. Carácter de Pre-Reserva</h3>
-                    <p>Las solicitudes realizadas en el sitio actúan como <strong>Pre-Reservas</strong>. La confirmación final depende de la disponibilidad física de las suites.</p>
+                    <p>Bienvenido al <strong>Hotel Samamba</strong>. Al utilizar nuestro sistema de reservas y pago en línea, acepta los siguientes términos:</p>
+                    <h3>1. Reserva Directa</h3>
+                    <p>Las reservas pagadas con Tarjeta de Crédito o PIX se confirman automáticamente en el sistema de nuestra recepción.</p>
                     <h3>2. Horarios de Check-in y Check-out</h3>
-                    <p>Check-in a partir de las 14:00h. Check-out hasta las 12:00h. Extensiones sujetas a disponibilidad y tarifas adicionales.</p>
+                    <p>Check-in a partir de las 14:00h. Check-out hasta las 12:00h.</p>
                     <h3>3. Cancelación</h3>
-                    <p>Cancelación gratuita hasta 28 horas hábiles antes del check-in. Cancelaciones posteriores perderán el pago de garantía.</p>
+                    <p>Cancelación gratuita con reembolso total hasta 28 horas hábiles antes del check-in.</p>
                 </div>
             ` : `
                 <div class="generic-modal-body">
-                    <p>Bem-vindo ao <strong>Hotel Samamba</strong>. Ao utilizar nosso site e sistema de pré-reserva, você concorda com os seguintes termos e condições:</p>
-                    <h3>1. Modelo de Solicitação de Pré-Reserva</h3>
-                    <p>Todas as reservas solicitadas através desta plataforma funcionam como <strong>Solicitações de Pré-Reserva</strong>. A reserva definitiva fica sujeita à confirmação de disponibilidade da recepção e ao pagamento da garantia.</p>
-                    <h3>2. Horários e Regras da Hospedagem</h3>
-                    <p>O <em>Check-in</em> é realizado a partir das 14h e o <em>Check-out</em> deve ser efetuado até às 12h. O atraso no check-out poderá acarretar cobrança de diária adicional.</p>
-                    <h3>3. Política de Cancelamento e Alterações</h3>
-                    <p>O cancelamento sem custos é garantido para solicitações realizadas com até 28 horas úteis de antecedência em relação ao horário de check-in.</p>
+                    <p>Bem-vindo ao <strong>Hotel Samamba</strong>. Ao utilizar nosso sistema de reserva e pagamento online, você concorda com os seguintes termos:</p>
+                    <h3>1. Reserva Direta Integrada</h3>
+                    <p>As reservas concluídas com pagamento via Cartão de Crédito ou PIX são confirmadas automaticamente e sincronizadas em tempo real com a recepção do hotel.</p>
+                    <h3>2. Horários da Hospedagem</h3>
+                    <p>O <em>Check-in</em> é realizado a partir das 14h e o <em>Check-out</em> deve ser efetuado até às 12h.</p>
+                    <h3>3. Política de Cancelamento</h3>
+                    <p>O cancelamento gratuito com estorno integral é garantido para solicitações realizadas com até 28 horas úteis de antecedência do check-in.</p>
                 </div>
             `;
         } else if (tipo === 'cookies') {
             titulo = txt.ft_cookies || 'Gerenciar Cookies';
             corpo = lang === 'en' ? `
                 <div class="generic-modal-body">
-                    <p>We use cookies and similar technologies to store website preferences, personalize your browsing, and secure form submissions.</p>
+                    <p>We use cookies to store website preferences and secure checkout sessions.</p>
                     <h3>1. Essential Cookies (Mandatory)</h3>
-                    <p>Necessary for core functionalities like multi-language switching, font scaling accessibility, and secure modal processing.</p>
-                    <h3>2. Analytical & Functional Cookies (Optional)</h3>
-                    <p>Help us analyze traffic trends and measure page loading speed to deliver a superior digital experience.</p>
+                    <p>Necessary for multi-language switching, accessibility settings, and booking checkout.</p>
+                    <h3>2. Analytical Cookies (Optional)</h3>
+                    <p>Help us measure page performance.</p>
                     <div style="margin-top:20px; display:flex; gap:10px;">
                         <button type="button" class="btn-cookie-secundario" style="flex:1;" onclick="app.cookies.salvarEFechar('recusados'); app.modal.fechar();">Decline Optional</button>
                         <button type="button" class="btn-cookie-primario" style="flex:1;" onclick="app.cookies.salvarEFechar('aceitos'); app.modal.fechar();">Accept All</button>
@@ -450,11 +494,11 @@ class GerenciadorModal {
                 </div>
             ` : lang === 'es' ? `
                 <div class="generic-modal-body">
-                    <p>Utilizamos cookies para garantizar la seguridad de su navegación y personalizar la experiencia en nuestro portal.</p>
+                    <p>Utilizamos cookies para garantizar la seguridad de su navegación y personalizar su experiencia.</p>
                     <h3>1. Cookies Esenciales (Obligatorias)</h3>
-                    <p>Indispensables para guardar configuraciones de accesibilidad, idioma del sitio y estado de la reserva.</p>
+                    <p>Indispensables para accesibilidad, idioma y flujo de reserva.</p>
                     <h3>2. Cookies Funcionales (Opcionales)</h3>
-                    <p>Permiten analizar el uso de las suites y optimizar el rendimiento de la página web.</p>
+                    <p>Permiten optimizar el rendimiento del sitio.</p>
                     <div style="margin-top:20px; display:flex; gap:10px;">
                         <button type="button" class="btn-cookie-secundario" style="flex:1;" onclick="app.cookies.salvarEFechar('recusados'); app.modal.fechar();">Rechazar Opcionales</button>
                         <button type="button" class="btn-cookie-primario" style="flex:1;" onclick="app.cookies.salvarEFechar('aceitos'); app.modal.fechar();">Aceptar Todos</button>
@@ -462,11 +506,11 @@ class GerenciadorModal {
                 </div>
             ` : `
                 <div class="generic-modal-body">
-                    <p>Utilizamos cookies para garantir a navegação segura, personalizar sua experiência e salvar preferências do usuário.</p>
+                    <p>Utilizamos cookies para garantir a navegação segura e salvar suas preferências.</p>
                     <h3>1. Cookies Estritamente Necessários (Obrigatórios)</h3>
-                    <p>Fundamentais para guardar as escolhas de acessibilidade (tamanho da fonte/contraste), troca dinâmica de idiomas e persistência do formulário de reserva.</p>
-                    <h3>2. Cookies Analíticos e de Desempenho (Opcionais)</h3>
-                    <p>Permitem mensurar o tráfego do site, otimizar o tempo de carregamento e oferecer um serviço cada vez mais eficiente.</p>
+                    <p>Fundamentais para acessibilidade, idioma e processamento do checkout.</p>
+                    <h3>2. Cookies Analíticos (Opcionais)</h3>
+                    <p>Permitem otimizar o desempenho da página.</p>
                     <div style="margin-top:20px; display:flex; gap:10px;">
                         <button type="button" class="btn-cookie-secundario" style="flex:1;" onclick="app.cookies.salvarEFechar('recusados'); app.modal.fechar();">Recusar Opcionais</button>
                         <button type="button" class="btn-cookie-primario" style="flex:1;" onclick="app.cookies.salvarEFechar('aceitos'); app.modal.fechar();">Aceitar Todos</button>
@@ -498,14 +542,29 @@ class GerenciadorReserva {
             'triplo': new Acomodacao('triplo', 'Suíte Triplo', 259, 3),
             'familia': new Acomodacao('familia', 'Suíte Família', 279, 3)
         };
-        this.modalState = { suiteKey: null, incluiPet: 'nao', checkin: '', checkout: '', email: '', whatsapp: '' };
+        this.modalState = {
+            suiteKey: null,
+            incluiPet: 'nao',
+            checkin: '',
+            checkout: '',
+            nome: '',
+            email: '',
+            metodoPagamento: 'cartao', // 'cartao', 'pix', 'boleto'
+            cartaoNumero: '',
+            cartaoTitular: '',
+            cartaoValidade: '',
+            cartaoCvv: '',
+            parcelas: 1,
+            seedFicticia: 12345
+        };
     }
 
     iniciarReserva(suiteKey) {
         this.modalState.suiteKey = suiteKey;
         this.modalState.incluiPet = 'nao';
-        this.modalState.email = '';
-        this.modalState.whatsapp = '';
+        this.modalState.metodoPagamento = 'cartao';
+        this.modalState.parcelas = 1;
+        this.modalState.seedFicticia = Math.floor(10000 + Math.random() * 89999);
 
         if (!this.modalState.checkin) {
             const timezoneOffset = (new Date()).getTimezoneOffset() * 60000;
@@ -520,7 +579,26 @@ class GerenciadorReserva {
         this.renderModal();
     }
 
+    salvarEstadoInputs() {
+        const nomeEl = document.getElementById('modal-nome');
+        const emailEl = document.getElementById('modal-email');
+        const cardNumEl = document.getElementById('card-number');
+        const cardHolderEl = document.getElementById('card-holder');
+        const cardExpEl = document.getElementById('card-expiry');
+        const cardCvvEl = document.getElementById('card-cvv');
+        const parcelasEl = document.getElementById('card-installments');
+
+        if (nomeEl) this.modalState.nome = nomeEl.value;
+        if (emailEl) this.modalState.email = emailEl.value;
+        if (cardNumEl) this.modalState.cartaoNumero = cardNumEl.value;
+        if (cardHolderEl) this.modalState.cartaoTitular = cardHolderEl.value;
+        if (cardExpEl) this.modalState.cartaoValidade = cardExpEl.value;
+        if (cardCvvEl) this.modalState.cartaoCvv = cardCvvEl.value;
+        if (parcelasEl) this.modalState.parcelas = parseInt(parcelasEl.value, 10) || 1;
+    }
+
     atualizarDatas() {
+        this.salvarEstadoInputs();
         const ci = document.getElementById('modal-checkin').value;
         let co = document.getElementById('modal-checkout').value;
         
@@ -537,59 +615,182 @@ class GerenciadorReserva {
     }
 
     atualizarPet(valor) {
+        this.salvarEstadoInputs();
         this.modalState.incluiPet = valor;
         this.renderModal();
     }
 
-    validarContato() {
-        const emailInput = document.getElementById('modal-email');
-        const hint = document.getElementById('contact-hint');
-        const txt = this.traducao.dicionario[this.traducao.currentLang];
-
-        const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
-
-        if (emailValido) {
-            emailInput.style.borderColor = '#10B981';
-            emailInput.style.backgroundColor = '#F0FDF4';
-            hint.textContent = txt.md_hint_valid || '✓ E-mail válido registrado!';
-            hint.style.color = '#10B981';
-            return true;
-        } else {
-            emailInput.style.borderColor = '#EF4444';
-            emailInput.style.backgroundColor = '#FEF2F2';
-            hint.textContent = txt.md_hint_invalid || '* Por favor, preencha um e-mail válido para concluir a pré-reserva.';
-            hint.style.color = '#EF4444';
-            return false;
-        }
+    selecionarMetodoPagamento(metodo) {
+        this.salvarEstadoInputs();
+        this.modalState.metodoPagamento = metodo;
+        if (metodo !== 'cartao') this.modalState.parcelas = 1;
+        this.renderModal();
     }
 
-    processarCliqueConfirmacao() {
-        const emailInput = document.getElementById('modal-email');
-        const isValido = this.validarContato();
+    alterarParcelas(qtd) {
+        this.salvarEstadoInputs();
+        this.modalState.parcelas = parseInt(qtd, 10) || 1;
+        this.renderModal();
+    }
 
-        if (isValido) {
-            this.finalizarReserva();
-        } else {
-            emailInput?.focus();
-            const hint = document.getElementById('contact-hint');
-            if (hint) {
-                hint.style.fontSize = '0.9rem';
-                hint.style.fontWeight = '700';
-                setTimeout(() => { hint.style.fontSize = '0.83rem'; }, 2000);
+    mascaraCartao(input) {
+        let v = input.value.replace(/\D/g, '').substring(0, 16);
+        v = v.replace(/(\d{4})(?=\d)/g, '$1 ');
+        input.value = v;
+        this.modalState.cartaoNumero = v;
+    }
+
+    mascaraValidade(input) {
+        let v = input.value.replace(/\D/g, '').substring(0, 4);
+        if (v.length >= 3) {
+            v = v.substring(0, 2) + '/' + v.substring(2);
+        }
+        input.value = v;
+        this.modalState.cartaoValidade = v;
+    }
+
+    copiarTexto(texto, msgSucesso) {
+        navigator.clipboard?.writeText(texto);
+        if (window.app) window.app.showToast(msgSucesso);
+    }
+
+    // Gera um QR Code SVG vetorial determinístico e visualmente autêntico
+    gerarSvgQrCode(seed) {
+        const size = 21;
+        let rects = '';
+        for (let r = 0; r < size; r++) {
+            for (let c = 0; c < size; c++) {
+                // Padrões de canto (Finder Patterns)
+                const topLeft = r < 7 && c < 7;
+                const topRight = r < 7 && c >= size - 7;
+                const bottomLeft = r >= size - 7 && c < 7;
+
+                let fill = false;
+                if (topLeft || topRight || bottomLeft) {
+                    const lr = topLeft || topRight ? r : r - (size - 7);
+                    const lc = topLeft || bottomLeft ? c : c - (size - 7);
+                    if (lr === 0 || lr === 6 || lc === 0 || lc === 6 || (lr >= 2 && lr <= 4 && lc >= 2 && lc <= 4)) {
+                        fill = true;
+                    }
+                } else {
+                    // Matriz pseudo-aleatória baseada na seed da reserva
+                    const hash = Math.sin(seed * 13 + r * 31 + c * 17) * 10000;
+                    fill = (hash - Math.floor(hash)) > 0.48;
+                }
+
+                if (fill) {
+                    rects += `<rect x="${c * 5 + 5}" y="${r * 5 + 5}" width="5" height="5" fill="#0F172A"/>`;
+                }
             }
         }
+        return `<svg viewBox="0 0 115 115" width="115" height="115" xmlns="http://www.w3.org/2000/svg" style="background:#fff; border-radius:8px; border:1px solid #CBD5E1; flex-shrink:0;">${rects}</svg>`;
+    }
+
+    // Gera um código de barras SVG realista para o boleto fictício
+    gerarSvgCodigoBarras(seed) {
+        let bars = '';
+        let x = 4;
+        for (let i = 0; i < 58; i++) {
+            const hash = Math.sin(seed + i * 19) * 10000;
+            const w = (hash - Math.floor(hash)) > 0.55 ? 3 : 1.5;
+            if (i % 2 === 0) {
+                bars += `<rect x="${x}" y="2" width="${w}" height="38" fill="#0F172A"/>`;
+            }
+            x += w + 1.5;
+        }
+        return `<svg viewBox="0 0 ${x + 4} 42" width="100%" height="42" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="background:#fff; padding:4px; border-radius:4px; border:1px solid #CBD5E1;">${bars}</svg>`;
+    }
+
+    calcularValores(dias, suite) {
+        const valorAcomodacao = dias * suite.preco;
+        const valorPets = (this.modalState.incluiPet === 'sim') ? ((dias <= 3) ? (80 * dias) : 250) : 0;
+        const subtotal = valorAcomodacao + valorPets;
+
+        let totalComJuros = subtotal;
+        let juros = 0;
+
+        // Até 3x sem juros; de 4x a 10x aplica 1.99% a.m.
+        if (this.modalState.metodoPagamento === 'cartao' && this.modalState.parcelas > 3) {
+            const taxa = 0.0199;
+            totalComJuros = subtotal * Math.pow(1 + taxa, this.modalState.parcelas);
+            juros = totalComJuros - subtotal;
+        }
+
+        return { valorAcomodacao, valorPets, subtotal, juros, totalComJuros };
+    }
+
+    validarFormulario() {
+        this.salvarEstadoInputs();
+        const nomeValido = this.modalState.nome.trim().length >= 3;
+        const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.modalState.email.trim());
+
+        let pagamentoValido = true;
+        if (this.modalState.metodoPagamento === 'cartao') {
+            const numLimpo = this.modalState.cartaoNumero.replace(/\s/g, '');
+            const titularValido = this.modalState.cartaoTitular.trim().length >= 3;
+            const valValida = /^\d{2}\/\d{2}$/.test(this.modalState.cartaoValidade);
+            const cvvValido = /^\d{3,4}$/.test(this.modalState.cartaoCvv);
+            pagamentoValido = numLimpo.length >= 13 && titularValido && valValida && cvvValido;
+        }
+
+        const erroBox = document.getElementById('checkout-error-msg');
+        if (!nomeValido || !emailValido || !pagamentoValido) {
+            if (erroBox) erroBox.style.display = 'block';
+            return false;
+        }
+
+        if (erroBox) erroBox.style.display = 'none';
+        return true;
+    }
+
+    processarPagamento() {
+        if (!this.validarFormulario()) return;
+
+        const txt = this.traducao.dicionario[this.traducao.currentLang];
+        const btn = document.getElementById('btn-confirmar-reserva');
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${txt.md_processing}`;
+        }
+
+        setTimeout(() => {
+            this.finalizarReserva();
+        }, 1400);
     }
 
     renderModal() {
         const txt = this.traducao.dicionario[this.traducao.currentLang];
         const dias = Math.ceil((new Date(this.modalState.checkout) - new Date(this.modalState.checkin)) / (1000 * 60 * 60 * 24)) || 1;
         const suite = this.suites[this.modalState.suiteKey];
-        const valorAcomodacao = dias * suite.preco;
-        let valorPets = (this.modalState.incluiPet === 'sim') ? ((dias <= 3) ? (80 * dias) : 250) : 0;
-        const valorTotal = valorAcomodacao + valorPets;
+        const calc = this.calcularValores(dias, suite);
         const minCheckin = (new Date()).toISOString().split('T')[0];
         const suiteNomeTraduzido = txt[`room_title_${this.modalState.suiteKey}`] || suite.nome;
         const formatBRL = (v) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v);
+
+        // Gera opções de 1x até 10x
+        let opcoesParcelasHTML = '';
+        for (let p = 1; p <= 10; p++) {
+            if (p <= 3) {
+                const valorParc = calc.subtotal / p;
+                opcoesParcelasHTML += `<option value="${p}" ${this.modalState.parcelas === p ? 'selected' : ''}>${p}x de ${formatBRL(valorParc)} ${txt.md_no_interest}</option>`;
+            } else {
+                const totalP = calc.subtotal * Math.pow(1.0199, p);
+                const valorParc = totalP / p;
+                opcoesParcelasHTML += `<option value="${p}" ${this.modalState.parcelas === p ? 'selected' : ''}>${p}x de ${formatBRL(valorParc)} ${txt.md_with_interest}</option>`;
+            }
+        }
+
+        // Dados fictícios de PIX e Boleto
+        const codigoPixSimulado = `00020126580014BR.GOV.BCB.PIX013633494352000108-HOTELSAMAMBA5204000053039865406${calc.subtotal.toFixed(2)}5802BR5913HOTEL SAMAMBA6008BRASILIA62070503${this.modalState.seedFicticia}6304E2B1`;
+        const centavosBoleto = Math.round(calc.subtotal * 100).toString().padStart(10, '0');
+        const linhaDigitavelBoleto = `00190.00009 03349.435201 00108.${this.modalState.seedFicticia}8 1 9985${centavosBoleto}`;
+        const dataVencimento = new Date(Date.now() + 2 * 86400000).toLocaleDateString('pt-BR');
+
+        const btnLabel = this.modalState.metodoPagamento === 'cartao'
+            ? txt.md_btn_pay_card
+            : this.modalState.metodoPagamento === 'pix'
+                ? txt.md_btn_pay_pix
+                : txt.md_btn_pay_bol;
 
         const modalHTML = `
             <div class="modal-header">
@@ -597,6 +798,7 @@ class GerenciadorReserva {
                 <button type="button" class="close-modal" onclick="app.modal.fechar()" aria-label="Fechar">×</button>
             </div>
             
+            <!-- 1. DETALHES DA ESTADIA E SERVIÇO DE PETS -->
             <div class="modal-body-grid">
                 <div class="modal-step">
                     <h3>${txt.md_stay_details}</h3>
@@ -631,43 +833,132 @@ class GerenciadorReserva {
                 </div>
             </div>
 
-            <div class="modal-step" style="margin-bottom: 20px;">
-                <h3><i class="fas fa-address-card" style="color:var(--primary);"></i> ${txt.md_contact_header}</h3>
-                
-                <div class="input-group-modal" style="margin-bottom: 12px;">
-                    <label for="modal-email">${txt.md_email_label}</label>
-                    <input type="email" id="modal-email" placeholder="seuemail@exemplo.com" oninput="app.reserva.validarContato()">
-                </div>
-
-                <div class="input-group-modal">
-                    <label for="modal-whatsapp">${txt.md_wpp_label}</label>
-                    <input type="tel" id="modal-whatsapp" placeholder="(61) 99999-9999 ou nº internacional">
-                </div>
-                <div id="contact-hint" class="field-hint" style="font-size:0.83rem; color:var(--text-muted); margin-top:6px; transition: all 0.3s;">
-                    * Por favor, preencha um e-mail válido para concluir a pré-reserva.
-                </div>
-            </div>
-
-            <div class="summary-box">
+            <!-- 2. SUBTOTAL E TOTAL FINAL -->
+            <div class="summary-box" style="margin-bottom: 20px;">
                 <div class="summary-row">
                     <span>${txt.md_subtotal_room}</span>
-                    <span>${formatBRL(valorAcomodacao)}</span>
+                    <span>${formatBRL(calc.valorAcomodacao)}</span>
                 </div>
                 ${this.modalState.incluiPet === 'sim' ? `
                     <div class="summary-row">
                         <span>${txt.md_pet_subtotal}</span>
-                        <span>${formatBRL(valorPets)}</span>
+                        <span>${formatBRL(calc.valorPets)}</span>
+                    </div>
+                ` : ''}
+                ${calc.juros > 0 ? `
+                    <div class="summary-row" style="color: var(--text-muted); font-size: 0.88rem;">
+                        <span>${txt.md_interest_row} (${this.modalState.parcelas}x)</span>
+                        <span>+ ${formatBRL(calc.juros)}</span>
                     </div>
                 ` : ''}
                 
                 <div class="summary-row final-total">
                     <span>${txt.md_total_res}</span>
-                    <span id="final-total">${formatBRL(valorTotal)}</span>
+                    <span id="final-total">${formatBRL(calc.totalComJuros)}</span>
                 </div>
             </div>
+
+            <!-- 3. FORMA DE PAGAMENTO (CARTÃO 10X / PIX / BOLETO) -->
+            <div class="modal-step" style="margin-bottom: 20px;">
+                <h3><i class="fas fa-lock" style="color:var(--primary);"></i> ${txt.md_pay_header}</h3>
+                
+                <div class="payment-tabs">
+                    <button type="button" class="pay-tab ${this.modalState.metodoPagamento === 'cartao' ? 'active' : ''}" onclick="app.reserva.selecionarMetodoPagamento('cartao')">
+                        <i class="fas fa-credit-card"></i> ${txt.md_pay_card}
+                    </button>
+                    <button type="button" class="pay-tab ${this.modalState.metodoPagamento === 'pix' ? 'active' : ''}" onclick="app.reserva.selecionarMetodoPagamento('pix')">
+                        <i class="fas fa-qrcode"></i> ${txt.md_pay_pix}
+                    </button>
+                    <button type="button" class="pay-tab ${this.modalState.metodoPagamento === 'boleto' ? 'active' : ''}" onclick="app.reserva.selecionarMetodoPagamento('boleto')">
+                        <i class="fas fa-barcode"></i> ${txt.md_pay_boleto}
+                    </button>
+                </div>
+
+                ${this.modalState.metodoPagamento === 'cartao' ? `
+                    <div class="payment-panel">
+                        <div class="modal-dates" style="margin-bottom: 10px;">
+                            <div class="input-group-modal">
+                                <label for="card-number">${txt.md_card_num}</label>
+                                <input type="text" id="card-number" value="${this.modalState.cartaoNumero}" placeholder="0000 0000 0000 0000" maxlength="19" oninput="app.reserva.mascaraCartao(this)">
+                            </div>
+                            <div class="input-group-modal">
+                                <label for="card-holder">${txt.md_card_holder}</label>
+                                <input type="text" id="card-holder" value="${this.modalState.cartaoTitular}" placeholder="COMO NO CARTÃO" style="text-transform: uppercase;">
+                            </div>
+                        </div>
+                        <div class="modal-dates" style="margin-bottom: 10px;">
+                            <div class="input-group-modal">
+                                <label for="card-expiry">${txt.md_card_exp}</label>
+                                <input type="text" id="card-expiry" value="${this.modalState.cartaoValidade}" placeholder="MM/AA" maxlength="5" oninput="app.reserva.mascaraValidade(this)">
+                            </div>
+                            <div class="input-group-modal">
+                                <label for="card-cvv">${txt.md_card_cvv}</label>
+                                <input type="text" id="card-cvv" value="${this.modalState.cartaoCvv}" placeholder="123" maxlength="4" oninput="this.value = this.value.replace(/\\D/g, '')">
+                            </div>
+                        </div>
+                        <div class="input-group-modal">
+                            <label for="card-installments">${txt.md_card_inst}</label>
+                            <select id="card-installments" class="select-modal" onchange="app.reserva.alterarParcelas(this.value)">
+                                ${opcoesParcelasHTML}
+                            </select>
+                        </div>
+                    </div>
+                ` : this.modalState.metodoPagamento === 'pix' ? `
+                    <div class="payment-panel">
+                        <div class="pix-box">
+                            ${this.gerarSvgQrCode(this.modalState.seedFicticia)}
+                            <div style="flex: 1; min-width: 0;">
+                                <strong>${txt.md_pix_title}</strong>
+                                <p style="margin: 4px 0 8px; font-size: 0.84rem; color: var(--text-muted);">${txt.md_pix_desc}</p>
+                                <div class="fake-code-box">${codigoPixSimulado}</div>
+                                <button type="button" class="btn-copy-pix" onclick="app.reserva.copiarTexto('${codigoPixSimulado}', '${txt.md_pix_copied}')">
+                                    <i class="fas fa-copy"></i> ${txt.md_pix_copy}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                ` : `
+                    <div class="payment-panel">
+                        <div class="boleto-box">
+                            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:6px;">
+                                <strong><i class="fas fa-university"></i> ${txt.md_bol_title}</strong>
+                                <span style="font-size:0.8rem; font-weight:700; color:var(--primary);">${txt.md_bol_due} ${dataVencimento}</span>
+                            </div>
+                            <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:8px;">${txt.md_bol_benef}</p>
+                            ${this.gerarSvgCodigoBarras(this.modalState.seedFicticia)}
+                            <div class="fake-code-box" style="margin-top:8px; text-align:center; font-weight:700;">${linhaDigitavelBoleto}</div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-top:8px;">
+                                <button type="button" class="btn-copy-pix" onclick="app.reserva.copiarTexto('${linhaDigitavelBoleto}', '${txt.md_bol_copied}')">
+                                    <i class="fas fa-copy"></i> ${txt.md_bol_copy}
+                                </button>
+                                <small style="color:var(--text-muted);">${txt.md_bol_note}</small>
+                            </div>
+                        </div>
+                    </div>
+                `}
+            </div>
+
+            <!-- 4. DADOS DO HÓSPEDE (CHECK-IN DIGITAL) -->
+            <div class="modal-step" style="margin-bottom: 15px;">
+                <h3><i class="fas fa-user-check" style="color:var(--primary);"></i> ${txt.md_guest_header}</h3>
+                <div class="modal-dates" style="margin-bottom: 0;">
+                    <div class="input-group-modal">
+                        <label for="modal-nome">${txt.md_name_label}</label>
+                        <input type="text" id="modal-nome" value="${this.modalState.nome}" placeholder="${txt.md_name_ph}">
+                    </div>
+                    <div class="input-group-modal">
+                        <label for="modal-email">${txt.md_email_label}</label>
+                        <input type="email" id="modal-email" value="${this.modalState.email}" placeholder="${txt.md_email_ph}">
+                    </div>
+                </div>
+            </div>
+
+            <div id="checkout-error-msg" style="display:none; color:#EF4444; background:#FEF2F2; border:1px solid #FCA5A5; padding:10px 14px; border-radius:10px; font-size:0.85rem; font-weight:600; margin-bottom:15px;">
+                ${txt.md_err_fields}
+            </div>
             
-            <button type="button" id="btn-confirmar-reserva" class="btn-checkout-final" onclick="app.reserva.processarCliqueConfirmacao()">
-                ${txt.md_btn_confirm}
+            <button type="button" id="btn-confirmar-reserva" class="btn-checkout-final" onclick="app.reserva.processarPagamento()">
+                <i class="fas fa-shield-alt"></i> ${btnLabel}
             </button>
         `;
 
@@ -676,20 +967,40 @@ class GerenciadorReserva {
 
     finalizarReserva() {
         const txt = this.traducao.dicionario[this.traducao.currentLang];
-        const emailDigitado = document.getElementById('modal-email')?.value || 'seu e-mail cadastrado';
-        const wppDigitado = document.getElementById('modal-whatsapp')?.value;
+        const dias = Math.ceil((new Date(this.modalState.checkout) - new Date(this.modalState.checkin)) / (1000 * 60 * 60 * 24)) || 1;
+        const suite = this.suites[this.modalState.suiteKey];
+        const calc = this.calcularValores(dias, suite);
+        const formatBRL = (v) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v);
+
+        const codigoReserva = `#SMB-${this.modalState.seedFicticia}`;
+        const protocoloRecepcao = `REC-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+        const suiteNomeTraduzido = txt[`room_title_${this.modalState.suiteKey}`] || suite.nome;
+        const isBoleto = this.modalState.metodoPagamento === 'boleto';
+
+        const metodoLabel = isBoleto
+            ? `${txt.md_pay_boleto} (${formatBRL(calc.totalComJuros)})`
+            : this.modalState.metodoPagamento === 'pix'
+                ? `${txt.md_pay_pix} (${formatBRL(calc.totalComJuros)})`
+                : `${txt.md_pay_card} - ${this.modalState.parcelas}x de ${formatBRL(calc.totalComJuros / this.modalState.parcelas)}`;
 
         const successHTML = `
             <div class="success-screen">
-                <div class="success-icon" style="background: #0284C7;">
-                    <i class="fas fa-check-circle" aria-hidden="true"></i>
+                <div class="success-icon" style="background: ${isBoleto ? '#F59E0B' : '#10B981'};">
+                    <i class="fas ${isBoleto ? 'fa-file-invoice-dollar' : 'fa-check-circle'}" aria-hidden="true"></i>
                 </div>
-                <h2>${txt.md_success_title}</h2>
-                <p>${txt.md_success_desc}</p>
+                <h2>${isBoleto ? txt.md_success_title_bol : txt.md_success_title_paid}</h2>
+                <p>${isBoleto ? txt.md_success_desc_bol : txt.md_success_desc_paid}</p>
                 
-                <div style="background: #F0FDF4; border: 2px solid #10B981; padding: 14px; border-radius: 12px; margin-bottom: 20px; font-weight: 600; color: #047857; font-size: 1rem; text-align: left;">
-                    <div style="margin-bottom: 4px;"><i class="fas fa-envelope" style="margin-right: 8px;"></i> <strong>E-mail:</strong> ${emailDigitado}</div>
-                    ${wppDigitado ? `<div><i class="fab fa-whatsapp" style="margin-right: 8px; color: #25D366;"></i> <strong>WhatsApp:</strong> ${wppDigitado}</div>` : ''}
+                <div class="voucher-box ${isBoleto ? 'voucher-pending' : ''}">
+                    <div class="voucher-badge" style="background: ${isBoleto ? '#D97706' : '#10B981'};">
+                        <i class="fas ${isBoleto ? 'fa-clock' : 'fa-sync-alt'}"></i> ${isBoleto ? txt.md_status_bol : txt.md_status_paid}
+                    </div>
+                    <p><strong>${txt.md_voucher_code}</strong> <span style="font-family: monospace; font-size: 1.05rem;">${codigoReserva}</span></p>
+                    <p><strong>${txt.md_voucher_protocol}</strong> <span style="font-family: monospace;">${protocoloRecepcao}</span></p>
+                    <hr style="border:none; border-top:1px dashed currentColor; opacity:0.3; margin:8px 0;">
+                    <p><strong>Hóspede:</strong> ${this.modalState.nome} (${this.modalState.email})</p>
+                    <p><strong>${txt.md_suite}</strong> ${suiteNomeTraduzido} (${this.modalState.checkin} → ${this.modalState.checkout})</p>
+                    <p><strong>${txt.md_pay_header}:</strong> ${metodoLabel}</p>
                 </div>
 
                 <button type="button" class="btn-checkout-final" onclick="app.modal.fechar()">
@@ -827,7 +1138,6 @@ document.addEventListener('DOMContentLoaded', () => {
     app.init();
 });
 
-// Funções globais de atalho para garantir que os links do HTML sempre funcionem
 function moveHeroSlide(n) { app.moveHeroSlide(n); }
 function currentHeroSlide(n) { app.currentHeroSlide(n); }
 function moveRoomCarousel(suite, dir) { app.moveRoomCarousel(suite, dir); }
