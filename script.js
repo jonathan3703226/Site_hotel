@@ -81,7 +81,7 @@ class GerenciadorAcessibilidade {
         if (this.isReading) {
             window.speechSynthesis.cancel();
             this.isReading = false;
-            if (window.app) window.app.showToast('Leitura pausada.');
+            if (window.app) window.app.showToast('leitura pausada.');
             return;
         }
 
