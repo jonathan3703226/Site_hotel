@@ -115,7 +115,7 @@ class GerenciadorAcessibilidade {
     }
 }
 
-// Módulo de Tradução i18n
+// Módulo de Traduçã i18n
 class GerenciadorTraducao {
     constructor() {
         this.currentLang = 'pt';
