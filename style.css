@@ -17,7 +17,9 @@
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --base-font-size: 16px;
 }
-
+.btn-modal-back {
+    display: none;
+}
 /* Destaque de Links de Acessibilidade */
 body.highlight-links a {
     outline: 3px solid #F59E0B !important;
@@ -1910,7 +1912,7 @@ body.high-contrast .textarea-modal {
         background: var(--bg-light);
         border: 1px solid var(--border);
         color: var(--text-main);
-        padding: 6px 11px;
+        padding: 6px 12px;
         border-radius: 50px;
         font-size: 0.82rem;
         font-weight: 700;
@@ -1919,15 +1921,12 @@ body.high-contrast .textarea-modal {
     }
 
     .close-modal {
-        width: 34px;
-        height: 34px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--bg-light);
-        border-radius: 50%;
-        font-size: 22px;
-        flex-shrink: 0;
+        display: none;
+    }
+
+    .modal-header h2 {
+        font-size: 1.05rem;
+        text-align: right;
     }
 
     .modal-body-grid {
