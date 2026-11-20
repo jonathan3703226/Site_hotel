@@ -1875,14 +1875,59 @@ body.high-contrast .textarea-modal {
     }
 
     /* 5. Campos do modal alinhados em coluna única no mobile */
+    .modal-overlay {
+        z-index: 10050 !important;
+        padding: 10px;
+        align-items: flex-start;
+    }
     .modal {
-        padding: 18px 16px;
-        width: 94%;
+        padding: 0 16px 20px;
+        width: 100%;
+        max-height: 94svh;
         border-radius: 18px;
+        margin-top: 6px;
+    }
+
+    .modal-header {
+        position: sticky;
+        top: 0;
+        background: var(--white);
+        z-index: 20;
+        padding: 14px 0 12px;
+        margin-bottom: 16px;
+        gap: 10px;
     }
 
     .modal-header h2 {
-        font-size: 1.2rem;
+        font-size: 1.05rem;
+        flex: 1;
+        text-align: center;
+    }
+    .btn-modal-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: var(--bg-light);
+        border: 1px solid var(--border);
+        color: var(--text-main);
+        padding: 6px 11px;
+        border-radius: 50px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    .close-modal {
+        width: 34px;
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-light);
+        border-radius: 50%;
+        font-size: 22px;
+        flex-shrink: 0;
     }
 
     .modal-body-grid {

@@ -159,8 +159,10 @@ class GerenciadorTraducao {
                 ft_copyright: "&copy; 2026 Hotel Samamba. Todos os direitos reservados. Conformidade LGPD & Acessibilidade W3C.",
                 ck_banner_text: "Utilizamos cookies para melhorar sua experiência no site. Ao continuar navegando, você concorda com nossa",
                 ck_btn_refuse: "Recusar opcionais", ck_btn_accept: "Aceitar todos",
+
                 // Checkout Completo
                 md_title: "Checkout & Pagamento Online", md_stay_details: "Detalhes da Estadia", md_checkin: "Check-in:", md_checkout: "Check-out:",
+                btn_back: "Voltar",
                 md_total_nights: "Total de Diárias:", md_suite: "Suíte:", md_daily_rate: "Valor da Diária:",
                 md_capacity_label: "Capacidade Máxima:",
                 md_capacity_unit: "pessoa(s)",
@@ -236,6 +238,7 @@ class GerenciadorTraducao {
                 ck_btn_refuse: "Decline optional", ck_btn_accept: "Accept all",
                 // Checkout
                 md_title: "Online Checkout & Payment", md_stay_details: "Stay Details", md_checkin: "Check-in:", md_checkout: "Check-out:",
+                btn_back: "Back",
                 md_total_nights: "Total Nights:", md_suite: "Suite:", md_daily_rate: "Daily Rate:",
                 md_capacity_label: "Maximum Capacity:",
                 md_capacity_unit: "person(s)",
@@ -311,6 +314,7 @@ class GerenciadorTraducao {
                 ck_btn_refuse: "Rechazar opcionales", ck_btn_accept: "Aceptar todos",
                 // Checkout
                 md_title: "Checkout y Pago Online", md_stay_details: "Detalles de la Estancia", md_checkin: "Check-in:", md_checkout: "Check-out:",
+                btn_back: "Volver",
                 md_total_nights: "Noches Totales:", md_suite: "Suite:", md_daily_rate: "Precio por Noche:",
                 md_capacity_label: "Capacidad Máxima:",
                 md_capacity_unit: "persona(s)",
@@ -430,11 +434,21 @@ class GerenciadorModal {
         this.content.innerHTML = htmlContent;
         this.overlay.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
+
+        // Registra no histórico para que o botão Voltar do celular feche o modal
+        if (!history.state || !history.state.modalOpen) {
+            history.pushState({ modalOpen: true }, '');
+        }
     }
 
     fechar() {
         this.overlay.classList.add('hidden');
         document.body.style.overflow = '';
+
+        // Se fechou pelo botão "×" ou "Voltar" da tela, limpa o estado do histórico
+        if (history.state && history.state.modalOpen) {
+            history.back();
+        }
     }
 
     abrirModalGenerico(tipo) {
@@ -552,8 +566,12 @@ class GerenciadorModal {
             `;
         }
 
+        const btnVoltar = txt.btn_back || 'Voltar';
         const html = `
             <div class="modal-header">
+                <button type="button" class="btn-modal-back" onclick="app.modal.fechar()">
+                    <i class="fas fa-arrow-left"></i> ${btnVoltar}
+                </button>
                 <h2>${titulo}</h2>
                 <button type="button" class="close-modal" onclick="app.modal.fechar()" aria-label="Fechar">×</button>
             </div>
@@ -924,6 +942,9 @@ class GerenciadorReserva {
 
         const modalHTML = `
             <div class="modal-header">
+                <button type="button" class="btn-modal-back" onclick="app.modal.fechar()">
+                    <i class="fas fa-arrow-left"></i> ${txt.btn_back || 'Voltar'}
+                </button>
                 <h2>${txt.md_title}</h2>
                 <button type="button" class="close-modal" onclick="app.modal.fechar()" aria-label="Fechar">×</button>
             </div>
@@ -1208,6 +1229,15 @@ class HotelApp {
         this.heroIndex = 0;
         this.heroTimer = null;
         this.carouselsPos = { solteiro: 0, casal: 0, duplo: 0, triplo: 0, familia: 0 };
+
+        // Fecha qualquer modal aberto quando o usuário aperta "Voltar" no celular/navegador
+        window.addEventListener('popstate', () => {
+            const modaisAbertos = document.querySelectorAll('.modal-overlay:not(.hidden)');
+            if (modaisAbertos.length > 0) {
+                modaisAbertos.forEach(m => m.classList.add('hidden'));
+                document.body.style.overflow = '';
+            }
+        });
     }
 
     init() {
@@ -1297,6 +1327,7 @@ class HotelApp {
     }
 
     setupTouchCarousels() {
+        // Swipe nas fotos das suítes
         document.querySelectorAll('.room-carousel').forEach(carousel => {
             let startX = 0;
             carousel.addEventListener('touchstart', e => { startX = e.changedTouches[0].screenX; }, { passive: true });
@@ -1305,8 +1336,24 @@ class HotelApp {
                 let suite = carousel.id.replace('carousel-', '');
                 if (startX - endX > 30) this.moveRoomCarousel(suite, 1);
                 else if (endX - startX > 30) this.moveRoomCarousel(suite, -1);
-            });
+            }, { passive: true });
         });
+
+        // Swipe nas fotos principais do Hero (topo do site)
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) {
+            let heroStartX = 0;
+            heroSection.addEventListener('touchstart', e => {
+                heroStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            heroSection.addEventListener('touchend', e => {
+                const diff = heroStartX - e.changedTouches[0].screenX;
+                if (Math.abs(diff) > 40) {
+                    this.moveHeroSlide(diff > 0 ? 1 : -1);
+                }
+            }, { passive: true });
+        }
     }
 
     showToast(msg) {
