@@ -1345,90 +1345,7 @@ footer {
     border-color: var(--primary);
 }
 
-/* Responsividade Mobile */
-@media (max-width: 992px) {
-    .rooms-grid {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        padding-bottom: 20px;
-    }
 
-    .room-card {
-        min-width: 300px;
-        scroll-snap-align: center;
-    }
-
-    .info-grid,
-    .about-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .amenities-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .top-accessibility-bar {
-        font-size: 0.75rem;
-    }
-
-    .nav-links {
-        display: none;
-    }
-
-    .btn-whatsapp-nav span {
-        display: none;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-    .hero-content h1 {
-        font-size: 2.6rem;
-    }
-
-    .info-grid,
-    .about-grid,
-    .amenities-grid,
-    .footer-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .modal {
-        padding: 20px;
-        width: 95%;
-    }
-
-    .modal-body-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .pet-friendly-banner {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .cookie-compact-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 12px;
-    }
-
-    .cookie-text-compact {
-        flex-direction: column;
-    }
-
-    .cookie-botoes-compact {
-        width: 100%;
-    }
-
-    .cookie-botoes-compact button {
-        flex: 1;
-    }
-}
 /* CHECKOUT COMPLETO: CARTÃO 10X, PIX QR CODE E BOLETO */
 .payment-tabs {
     display: flex;
@@ -1721,4 +1638,258 @@ body.high-contrast .textarea-modal {
     background: #000000 !important;
     color: #FFFFFF !important;
     border-color: #FFFF00 !important;
+}
+/* Indicador de deslize das suítes (oculto no desktop) */
+.swipe-hint-mobile {
+    display: none;
+}
+
+/* Responsividade Tablet e Mobile */
+@media (max-width: 992px) {
+    .rooms-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 20px;
+        padding: 10px 16px 24px;
+        scroll-padding-left: 16px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .rooms-grid::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .rooms-grid::-webkit-scrollbar-track {
+        background: var(--border);
+        border-radius: 10px;
+    }
+
+    .rooms-grid::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 10px;
+    }
+
+    .room-card {
+        flex: 0 0 84%;
+        min-width: 280px;
+        max-width: 340px;
+        scroll-snap-align: start;
+    }
+
+    .swipe-hint-mobile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 14px;
+    }
+
+    .info-grid,
+    .about-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .amenities-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    /* 1. Correção da barra superior e menu mobile */
+    .top-accessibility-bar {
+        font-size: 0.72rem;
+        padding: 4px 0;
+    }
+
+    .acc-label {
+        display: none;
+    }
+
+    .accessibility-container {
+        justify-content: center;
+    }
+
+    .nav-container {
+        padding: 0 12px;
+        gap: 6px;
+    }
+
+    .logo a {
+        font-size: 1.18rem;
+        white-space: nowrap;
+    }
+
+    .nav-actions {
+        gap: 8px;
+        margin-left: auto;
+    }
+
+    .btn-whatsapp-nav {
+        padding: 7px 10px;
+        font-size: 0.9rem;
+    }
+
+    .btn-whatsapp-nav span {
+        display: none;
+    }
+
+    .lang-switcher {
+        gap: 5px;
+    }
+
+    .lang-switcher img {
+        width: 21px;
+    }
+
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+        margin-left: 4px;
+        font-size: 1.35rem;
+    }
+
+    /* Dropdown do menu mobile quando clicado */
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #0F172A;
+        flex-direction: column;
+        padding: 16px 20px;
+        gap: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    nav.scrolled .nav-links {
+        background: #FFFFFF;
+        border-top: 1px solid var(--border);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    /* 2 e 3. Correção do Hero: remove setas e evita sobreposição das bolinhas */
+    .hero-nav {
+        display: none !important;
+    }
+
+    .hero {
+        height: auto;
+        min-height: 100svh;
+        padding: 135px 16px 75px;
+    }
+
+    .hero-badge {
+        font-size: 0.78rem;
+        padding: 5px 12px;
+        margin-bottom: 14px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.15rem;
+        margin-bottom: 14px;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 24px;
+    }
+
+    .btn-primary {
+        padding: 12px 26px;
+        font-size: 0.95rem;
+    }
+
+    .carousel-indicators {
+        bottom: 18px;
+    }
+
+    /* 4. Ajuste das suítes e seções em coluna única */
+    .about-section {
+        padding: 70px 0 50px;
+    }
+
+    .rooms-section,
+    .amenities-section,
+    .info-section {
+        padding: 60px 0;
+    }
+
+    .section-header {
+        padding-top: 10px;
+        margin-bottom: 30px;
+    }
+
+    .section-header h2 {
+        font-size: 1.9rem;
+    }
+
+    .info-grid,
+    .about-grid,
+    .amenities-grid,
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* 5. Campos do modal alinhados em coluna única no mobile */
+    .modal {
+        padding: 18px 16px;
+        width: 94%;
+        border-radius: 18px;
+    }
+
+    .modal-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .modal-body-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .modal-dates {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .input-group-modal {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    .pet-friendly-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 28px 20px;
+    }
+
+    .cookie-compact-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+
+    .cookie-text-compact {
+        flex-direction: column;
+    }
+
+    .cookie-botoes-compact {
+        width: 100%;
+    }
+
+    .cookie-botoes-compact button {
+        flex: 1;
+    }
 }
