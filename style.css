@@ -1699,9 +1699,13 @@ body.high-contrast .textarea-modal {
 }
 
 @media (max-width: 768px) {
-    /* 1. Correção da barra superior e menu mobile */
+    /* 1. Barra de Acessibilidade e Cabeçalho Fixo */
+    .header-fixed-wrapper {
+        z-index: 9999;
+    }
+
     .top-accessibility-bar {
-        font-size: 0.72rem;
+        font-size: 12px;
         padding: 4px 0;
     }
 
@@ -1713,24 +1717,39 @@ body.high-contrast .textarea-modal {
         justify-content: center;
     }
 
+    .accessibility-controls button {
+        font-size: 12px;
+        padding: 3px 7px;
+    }
+
+    nav {
+        backdrop-filter: none;
+        background: #0F172A;
+    }
+
+    nav.scrolled {
+        background: #FFFFFF;
+    }
+
     .nav-container {
         padding: 0 12px;
         gap: 6px;
     }
 
     .logo a {
-        font-size: 1.18rem;
+        font-size: 17px;
         white-space: nowrap;
     }
 
     .nav-actions {
-        gap: 8px;
+        gap: 6px;
         margin-left: auto;
+        flex-shrink: 0;
     }
 
     .btn-whatsapp-nav {
-        padding: 7px 10px;
-        font-size: 0.9rem;
+        padding: 6px 9px;
+        font-size: 15px;
     }
 
     .btn-whatsapp-nav span {
@@ -1738,11 +1757,11 @@ body.high-contrast .textarea-modal {
     }
 
     .lang-switcher {
-        gap: 5px;
+        gap: 6px;
     }
 
     .lang-switcher img {
-        width: 21px;
+        width: 26px;
     }
 
     .menu-toggle {
@@ -1753,10 +1772,10 @@ body.high-contrast .textarea-modal {
         width: 36px;
         height: 36px;
         margin-left: 4px;
-        font-size: 1.35rem;
+        font-size: 20px;
     }
 
-    /* Dropdown do menu mobile quando clicado */
+    /* Dropdown do menu mobile (fundo sólido e sempre acima do Hero) */
     .nav-links {
         display: none;
         position: absolute;
@@ -1768,7 +1787,8 @@ body.high-contrast .textarea-modal {
         padding: 16px 20px;
         gap: 14px;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        z-index: 10000;
     }
 
     nav.scrolled .nav-links {
@@ -1778,6 +1798,11 @@ body.high-contrast .textarea-modal {
 
     .nav-links.active {
         display: flex;
+    }
+
+    .nav-links a {
+        font-size: 16px;
+        padding: 4px 0;
     }
 
     /* 2 e 3. Correção do Hero: remove setas e evita sobreposição das bolinhas */
@@ -1791,6 +1816,11 @@ body.high-contrast .textarea-modal {
         padding: 135px 16px 75px;
     }
 
+    .hero-content {
+        width: 100%;
+        padding: 0 8px;
+    }
+
     .hero-badge {
         font-size: 0.78rem;
         padding: 5px 12px;
@@ -1798,12 +1828,13 @@ body.high-contrast .textarea-modal {
     }
 
     .hero-content h1 {
-        font-size: 2.15rem;
+        font-size: clamp(1.75rem, 7vw, 2.2rem);
         margin-bottom: 14px;
+        word-wrap: break-word;
     }
 
     .hero-content p {
-        font-size: 1rem;
+        font-size: clamp(0.95rem, 4vw, 1.1rem);
         margin-bottom: 24px;
     }
 
